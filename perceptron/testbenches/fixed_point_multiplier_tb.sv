@@ -4,14 +4,16 @@
 module fixed_point_multiplier_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    parameter q_m = 17;
+    parameter sign = 1;
+    parameter q_m = 16;
     parameter q_n = 16;
     logic clk_i, reset_i;
-    logic [(q_m+q_n)-1:0] a_in;
-    logic [(q_m+q_n)-1:0] b_in;
-    wire [(q_m+q_n)-1:0] y_out;
+    logic [(sign+q_m+q_n)-1:0] a_in;
+    logic [(sign+q_m+q_n)-1:0] b_in;
+    wire [(sign+q_m+q_n)-1:0] y_out;
 
     fixed_point_multiplier #(
+    .sign(sign),
     .q_m(q_m),
     .q_n(q_n)
     ) UUT(
@@ -52,6 +54,16 @@ module fixed_point_multiplier_tb;
         b_in = 33'b0_0000000000000000_1000000000000000;
         repeat(1) @(negedge clk_i);
         assert (y_out == 33'b0_0000000000000000_1100000000000000) $display("Int times float.");
+
+        a_in = 33'b0_0000000000000001_1000000000000000;
+        b_in = 33'b0_0000000000000000_1000000000000000;
+        repeat(1) @(negedge clk_i);
+        assert (y_out == 33'b0_0000000000000000_1100000000000000) $display("Int times float.");
+
+        a_in = 33'b0_0000000000000000_0001111110011000;
+        b_in = 33'b0_0000000000000000_0001111110011000;
+        repeat(1) @(negedge clk_i);
+        assert (y_out == 33'b0_0000000000000000_0000001111100110) $display("Large floats.");
 
         $finish;
     end

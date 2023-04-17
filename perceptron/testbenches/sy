@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Apr 17 17:15:52 2023
+[*] Mon Apr 17 17:55:48 2023
 [*]
 [dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/fixed_point_multiplier.fst"
-[dumpfile_mtime] "Mon Apr 17 17:15:39 2023"
-[dumpfile_size] 705
+[dumpfile_mtime] "Mon Apr 17 17:55:44 2023"
+[dumpfile_size] 779
 [savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
 [timestart] 0
 [size] 2560 1376
 [pos] -1 -1
-*-13.000000 18060 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-13.000000 37920 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] fixed_point_multiplier_tb.
 [sst_width] 233
 [signals_width] 271
