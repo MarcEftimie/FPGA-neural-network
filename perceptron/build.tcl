@@ -7,7 +7,7 @@ read_verilog [ glob ./hdl/*.sv ]
 read_xdc ./Nexys-4-Master.xdc
 
 # Sythesis & Optimization
-synth_design -top float_multiplier -part xc7a100tcsg324-1 -directive runtimeoptimized
+synth_design -top neuron -part xc7a100tcsg324-1 -directive runtimeoptimized
 write_checkpoint -force synthesis.checkpoint
 opt_design
 # power_opt_design # optional till later.

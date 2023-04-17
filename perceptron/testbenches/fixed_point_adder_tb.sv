@@ -8,8 +8,8 @@ module fixed_point_adder_tb;
     parameter q_m = 16;
     parameter q_n = 16;
     logic clk_i;
-    logic [sign + q_m + q_n -1:0] x1_in, x2_in, b_in;
-    wire [sign + q_m + q_n - 1:0] y_out;
+    logic [sign + q_m + q_n -1:0] a_in, b_in;
+    wire [sign + q_m + q_n - 1:0] sum_out;
 
     fixed_point_adder #(
     .sign(sign),
@@ -27,22 +27,22 @@ module fixed_point_adder_tb;
         clk_i = 0;
         b_in = 0;
         repeat(1) @(negedge clk_i);
-        x1_in = 123;
-        x2_in = 146;
+        a_in = 123;
+        b_in = 146;
         repeat(1) @(negedge clk_i);
-        assert(y_out == 269) $display("Two positive numbers");
-        x1_in = -123;
-        x2_in = 146;
+        assert(sum_out == 269) $display("Two positive numbers");
+        a_in = -123;
+        b_in = 146;
         repeat(1) @(negedge clk_i);
-        assert(y_out == 23) $display("One negative one positive number");
-        x1_in = -123;
-        x2_in = -146;
+        assert(sum_out == 23) $display("One negative one positive number");
+        a_in = -123;
+        b_in = -146;
         repeat(1) @(negedge clk_i);
-        assert(y_out == -269) $display("Two Negative numbers");
-        x1_in = 0;
-        x2_in = -146;
+        assert(sum_out == -269) $display("Two Negative numbers");
+        a_in = 0;
+        b_in = -146;
         repeat(1) @(negedge clk_i);
-        assert(y_out == -146) $display("0 and Negative number");
+        assert(sum_out == -146) $display("0 and Negative number");
         $finish;
     end
 

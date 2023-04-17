@@ -4,7 +4,7 @@
 module fixed_point_multiplier
     #(
         parameter sign = 1,
-        parameter q_m = 16,
+        parameter q_m = 15,
         parameter q_n = 16
     )
     (

@@ -1,23 +1,33 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Apr 17 18:19:02 2023
+[*] Mon Apr 17 20:06:43 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/activation_function.fst"
-[dumpfile_mtime] "Mon Apr 17 18:18:57 2023"
-[dumpfile_size] 603
+[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/neuron.fst"
+[dumpfile_mtime] "Mon Apr 17 20:06:15 2023"
+[dumpfile_size] 1289
 [savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
 [timestart] 0
 [size] 2560 1376
 [pos] -1 -1
-*-13.000000 14660 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] activation_function_tb.
+*-13.000000 12940 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] neuron_tb.
 [sst_width] 233
 [signals_width] 271
 [sst_expanded] 1
 [sst_vpaned_height] 414
+@29
+neuron_tb.UUT.x1_in
+neuron_tb.UUT.x2_in
+neuron_tb.UUT.bias
 @28
-activation_function_tb.UUT.activation
-@22
-activation_function_tb.UUT.summation[32:0]
+neuron_tb.UUT.x1_addend[31:0]
+neuron_tb.UUT.x2_addend[31:0]
+neuron_tb.UUT.b_addend[31:0]
+neuron_tb.UUT.out
+neuron_tb.UUT.summation_1[31:0]
+neuron_tb.UUT.summation_2[31:0]
+neuron_tb.UUT.w1[31:0]
+neuron_tb.UUT.w2[31:0]
+neuron_tb.UUT.wb[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

@@ -4,11 +4,11 @@
 module neuron
     #(
         parameter BIAS = 1,
-        parameter W1 = 1,
-        parameter W2 = 1,
-        parameter WB = 1,
+        parameter W1 = 32'b0_000000000000000_1100011101101111,
+        parameter W2 = 32'b0_000000000000000_1011001000111111,
+        parameter WB = 32'b1_000000000000000_0101001101100011,
         parameter sign = 1,
-        parameter q_m = 16,
+        parameter q_m = 15,
         parameter q_n = 16
     )
     (
@@ -26,7 +26,8 @@ module neuron
 
     logic [(sign + q_m + q_n) - 1:0] x1_addend, x2_addend, b_addend;
 
-    logic [(sign + q_m + q_n) - 1:0] y_out;
+    logic [(sign + q_m + q_n) - 1:0] summation_1;
+    logic [(sign + q_m + q_n) - 1:0] summation_2;
 
     fixed_point_multiplier #(
         .sign(sign),
@@ -62,11 +63,20 @@ module neuron
         .sign(sign),
         .q_m(q_m),
         .q_n(q_n)
-    ) ADDER (
-        .x1_in(x1_addend),
-        .x2_in(x2_addend),
+    ) ADDER1 (
+        .a_in(x1_addend),
+        .b_in(x2_addend),
+        .sum_out(summation_1)
+    );
+
+    fixed_point_adder #(
+        .sign(sign),
+        .q_m(q_m),
+        .q_n(q_n)
+    ) ADDER2 (
+        .a_in(summation_1),
         .b_in(b_addend),
-        .y_out(y_out)
+        .sum_out(summation_2)
     );
 
     activation_function #(
@@ -74,7 +84,7 @@ module neuron
         .q_m(q_m),
         .q_n(q_n)
     ) ACTIVATION_FUNCTION (
-        .summation(y_out),
+        .summation(summation_2),
         .activation(out)
     );
 
