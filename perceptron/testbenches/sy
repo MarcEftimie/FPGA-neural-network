@@ -1,26 +1,23 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Apr 17 17:55:48 2023
+[*] Mon Apr 17 18:19:02 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/fixed_point_multiplier.fst"
-[dumpfile_mtime] "Mon Apr 17 17:55:44 2023"
-[dumpfile_size] 779
+[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/activation_function.fst"
+[dumpfile_mtime] "Mon Apr 17 18:18:57 2023"
+[dumpfile_size] 603
 [savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
 [timestart] 0
 [size] 2560 1376
 [pos] -1 -1
-*-13.000000 37920 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] fixed_point_multiplier_tb.
+*-13.000000 14660 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] activation_function_tb.
 [sst_width] 233
 [signals_width] 271
 [sst_expanded] 1
 [sst_vpaned_height] 414
-@29
-fixed_point_multiplier_tb.UUT.a_b_product[64:0]
-fixed_point_multiplier_tb.UUT.a_in[32:0]
-fixed_point_multiplier_tb.UUT.b_in[32:0]
-fixed_point_multiplier_tb.UUT.clk_i
-fixed_point_multiplier_tb.UUT.reset_i
-fixed_point_multiplier_tb.UUT.y_out[32:0]
+@28
+activation_function_tb.UUT.activation
+@22
+activation_function_tb.UUT.summation[32:0]
 [pattern_trace] 1
 [pattern_trace] 0

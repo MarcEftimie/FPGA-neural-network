@@ -4,13 +4,15 @@
 module float_adder_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    parameter q_m = 17;
+    parameter sign = 1;
+    parameter q_m = 16;
     parameter q_n = 16;
     logic clk_i;
-    logic [q_m + q_n -1:0] a_in, b_in;
-    wire [q_m + q_n - 1:0] y_out;
+    logic [sign + q_m + q_n -1:0] a_in, b_in;
+    wire [sign + q_m + q_n - 1:0] y_out;
 
     float_adder #(
+    .sign(sign),
     .q_m(q_m),
     .q_n(q_n)
     ) UUT(

@@ -7,7 +7,7 @@ module fixed_point_multiplier_tb;
     parameter sign = 1;
     parameter q_m = 16;
     parameter q_n = 16;
-    logic clk_i, reset_i;
+    logic clk_i;
     logic [(sign+q_m+q_n)-1:0] a_in;
     logic [(sign+q_m+q_n)-1:0] b_in;
     wire [(sign+q_m+q_n)-1:0] y_out;

@@ -27,3 +27,6 @@ test_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv hdl/*
 
 test_float_adder : testbenches/float_adder_tb.sv hdl/*
 	${IVERILOG} $^ -o float_adder_tb.bin && ${VVP} float_adder_tb.bin ${VVP_POST} && gtkwave float_adder.fst -a testbenches/sy
+test_activation_function : testbenches/activation_function_tb.sv hdl/*
+	${IVERILOG} $^ -o activation_function_tb.bin && ${VVP} activation_function_tb.bin ${VVP_POST} && gtkwave activation_function.fst -a testbenches/sy
+
