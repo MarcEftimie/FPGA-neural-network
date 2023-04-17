@@ -12,3 +12,4 @@ clean:
 
 test_perceptron_top : testbenches/perceptron_top_tb.sv hdl/*
 	${IVERILOG} $^ -o perceptron_top_tb.bin && ${VVP} perceptron_top_tb.bin ${VVP_POST} && gtkwave perceptron_top.fst -a testbenches/sy
+

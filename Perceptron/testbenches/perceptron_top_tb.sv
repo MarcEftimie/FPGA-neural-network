@@ -4,13 +4,16 @@
 module perceptron_top_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    logic clk_i, logic ;
-    wire out1, wire ;
+    parameter HELLO = 1;
+    parameter HELLO2 = 1;
+    logic [1:0] clk_i, reset_i, btn_i;
+    wire [1:0] out1, led1;
+    wire sda;
 
     perceptron_top #(
     .HELLO(HELLO),
-    .HELLO2(HELLO2))
-    UUT(
+    .HELLO2(HELLO2)
+    ) UUT(
         .*
     );
 
