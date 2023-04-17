@@ -1,4 +1,3 @@
-
 IVERILOG=iverilog -DSIMULATION -Wall -Wno-sensitivity-entire-vector -Wno-sensitivity-entire-array -g2012 -Y.sv -I ./hdl -I ./tests 
 VVP=vvp
 VVP_POST=-fst
@@ -13,4 +12,7 @@ clean:
 
 test_perceptron_top : testbenches/perceptron_top_tb.sv hdl/*
 	${IVERILOG} $^ -o perceptron_top_tb.bin && ${VVP} perceptron_top_tb.bin ${VVP_POST} && gtkwave perceptron_top.fst -a testbenches/sy
+
+test_float_multiplier : testbenches/float_multiplier_tb.sv hdl/*
+	${IVERILOG} $^ -o float_multiplier_tb.bin && ${VVP} float_multiplier_tb.bin ${VVP_POST} && gtkwave float_multiplier.fst -a testbenches/sy
 

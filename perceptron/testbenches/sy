@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Mon Apr 17 15:32:49 2023
+[*]
+[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/float_multiplier.fst"
+[dumpfile_mtime] "Mon Apr 17 15:32:41 2023"
+[dumpfile_size] 644
+[savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
+[timestart] 0
+[size] 2560 1376
+[pos] -1 -1
+*-13.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] float_multiplier_tb.
+[sst_width] 233
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 414
+@29
+float_multiplier_tb.UUT.a_in[31:0]
+float_multiplier_tb.UUT.b_in[31:0]
+float_multiplier_tb.UUT.clk_i
+float_multiplier_tb.UUT.reset_i
+float_multiplier_tb.UUT.y_out[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

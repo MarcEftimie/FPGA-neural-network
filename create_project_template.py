@@ -13,8 +13,7 @@ os.mkdir(f"{project_name}/testbenches")
 
 # Create Main Project File
 f = open(f"{project_name}/hdl/{main_file_name}.sv", "w")
-f.write(f"""
-`timescale 1ns/1ps
+f.write(f"""`timescale 1ns/1ps
 `default_nettype none
 
 module {main_file_name}
@@ -165,8 +164,7 @@ if __name__ == '__main__':
 
 # Create Makefile
 f = open(f"{project_name}/Makefile", "w")
-f.write(f"""
-IVERILOG=iverilog -DSIMULATION -Wall -Wno-sensitivity-entire-vector -Wno-sensitivity-entire-array -g2012 -Y.sv -I ./hdl -I ./tests 
+f.write(f"""IVERILOG=iverilog -DSIMULATION -Wall -Wno-sensitivity-entire-vector -Wno-sensitivity-entire-array -g2012 -Y.sv -I ./hdl -I ./tests 
 VVP=vvp
 VVP_POST=-fst
 VIVADO=vivado -mode batch -source
