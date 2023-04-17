@@ -10,9 +10,18 @@ clean:
 	rm -f *.bin *.vcd *.fst vivado*.log *.jou vivado*.str *.log *.checkpoint *.bit *.html *.xml *.out
 	rm -rf .Xil
 
+program_fpga_vivado: $(SRCS) $(MAIN_MEMSMEMORIES) build.tcl program.tcl Nexys-4-Master.xdc
+	@echo "########################################"
+	@echo "#### Building FPGA bitstream        ####"
+	@echo "########################################"
+	${VIVADO} build.tcl
+	@echo "########################################"
+	@echo "#### Programming FPGA (Vivado)      ####"
+	@echo "########################################"
+	${VIVADO} program.tcl
+
 test_perceptron_top : testbenches/perceptron_top_tb.sv hdl/*
 	${IVERILOG} $^ -o perceptron_top_tb.bin && ${VVP} perceptron_top_tb.bin ${VVP_POST} && gtkwave perceptron_top.fst -a testbenches/sy
-
-test_float_multiplier : testbenches/float_multiplier_tb.sv hdl/*
-	${IVERILOG} $^ -o float_multiplier_tb.bin && ${VVP} float_multiplier_tb.bin ${VVP_POST} && gtkwave float_multiplier.fst -a testbenches/sy
+test_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv hdl/*
+	${IVERILOG} $^ -o fixed_point_multiplier_tb.bin && ${VVP} fixed_point_multiplier_tb.bin ${VVP_POST} && gtkwave fixed_point_multiplier.fst -a testbenches/sy
 
