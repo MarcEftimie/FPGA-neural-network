@@ -4,18 +4,18 @@
 module fixed_point_multiplier_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    parameter sign = 1;
-    parameter q_m = 16;
-    parameter q_n = 16;
+    parameter SIGN = 1;
+    parameter Q_M = 16;
+    parameter Q_N = 16;
     logic clk_i;
-    logic [(sign+q_m+q_n)-1:0] a_in;
-    logic [(sign+q_m+q_n)-1:0] b_in;
-    wire [(sign+q_m+q_n)-1:0] y_out;
+    logic [(SIGN+Q_M+Q_N)-1:0] a_in;
+    logic [(SIGN+Q_M+Q_N)-1:0] b_in;
+    wire [(SIGN+Q_M+Q_N)-1:0] y_out;
 
     fixed_point_multiplier #(
-    .sign(sign),
-    .q_m(q_m),
-    .q_n(q_n)
+    .SIGN(SIGN),
+    .Q_M(Q_M),
+    .Q_N(Q_N)
     ) UUT(
         .*
     );

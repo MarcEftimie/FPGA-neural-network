@@ -8,9 +8,9 @@ module neuron_tb;
     parameter W1 = 32'b0_000000000000000_1100011101101111;
     parameter W2 = 32'b0_000000000000000_1011001000111111;
     parameter WB = 32'b1_000000000000000_0101001101100011;
-    parameter sign = 1;
-    parameter q_m = 15;
-    parameter q_n = 16;
+    parameter SIGN = 1;
+    parameter Q_M = 15;
+    parameter Q_N = 16;
     logic clk_i;
     logic x1_in, x2_in;
     wire out;
@@ -20,9 +20,9 @@ module neuron_tb;
     .W1(W1),
     .W2(W2),
     .WB(WB),
-    .sign(sign),
-    .q_m(q_m),
-    .q_n(q_n)
+    .SIGN(SIGN),
+    .Q_M(Q_M),
+    .Q_N(Q_N)
     ) UUT(
         .*
     );
