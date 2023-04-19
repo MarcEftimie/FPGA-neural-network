@@ -1,0 +1,35 @@
+# Binary files
+*.bin
+
+# Simulation output files
+*.vcd
+*.fst
+
+# Vivado log files
+vivado*.log
+*.jou
+vivado*.str
+
+# Other log files
+*.log
+
+# Checkpoint files
+*.checkpoint
+
+# Bitstream files
+*.bit
+
+# HTML and XML files
+*.html
+*.xml
+
+# Output files
+*.out
+
+# Xilinx temporary files
+*.Xil
+
+# Python setup files
+perceptron.py
+create_testbench_template.py
+create_project_template.py
