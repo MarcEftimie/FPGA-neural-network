@@ -1,33 +1,66 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Apr 17 20:06:43 2023
+[*] Wed Apr 19 16:41:16 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/neuron.fst"
-[dumpfile_mtime] "Mon Apr 17 20:06:15 2023"
-[dumpfile_size] 1289
+[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/trainer_top.fst"
+[dumpfile_mtime] "Wed Apr 19 16:39:43 2023"
+[dumpfile_size] 2316
 [savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
 [timestart] 0
 [size] 2560 1376
-[pos] -1 -1
-*-13.000000 12940 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] neuron_tb.
+[pos] 0 26
+*-13.000000 5530 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] trainer_top_tb.
+[treeopen] trainer_top_tb.UUT.
+[treeopen] trainer_top_tb.UUT.NEURON_TRAINER.
 [sst_width] 233
-[signals_width] 271
+[signals_width] 498
 [sst_expanded] 1
-[sst_vpaned_height] 414
-@29
-neuron_tb.UUT.x1_in
-neuron_tb.UUT.x2_in
-neuron_tb.UUT.bias
+[sst_vpaned_height] 574
 @28
-neuron_tb.UUT.x1_addend[31:0]
-neuron_tb.UUT.x2_addend[31:0]
-neuron_tb.UUT.b_addend[31:0]
-neuron_tb.UUT.out
-neuron_tb.UUT.summation_1[31:0]
-neuron_tb.UUT.summation_2[31:0]
-neuron_tb.UUT.w1[31:0]
-neuron_tb.UUT.w2[31:0]
-neuron_tb.UUT.wb[31:0]
+trainer_top_tb.UUT.clk_i
+trainer_top_tb.UUT.reset_i
+trainer_top_tb.UUT.state_next[2:0]
+trainer_top_tb.UUT.state_reg[2:0]
+@29
+trainer_top_tb.UUT.train_out[31:0]
+trainer_top_tb.UUT.train_x1[31:0]
+trainer_top_tb.UUT.train_x2[31:0]
+@200
+-Neuron
+@28
+trainer_top_tb.UUT.NEURON_TRAINER.clk_i
+trainer_top_tb.UUT.NEURON_TRAINER.error[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.learning_rate[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.lr_error_product[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.prediction_out[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.reset_i
+trainer_top_tb.UUT.NEURON_TRAINER.train_x1_in[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.train_x2_in[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.train_out_in[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_1_reg[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_2_reg[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_reg[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_1_next[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_2_next[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_next[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_1_addend[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_2_addend[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_addend[31:0]
+@200
+-Neuron2
+@28
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.b_addend[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.bias[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.out[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.summation_1[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.summation_2[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.w1[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.w2[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.wb[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x1_addend[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x1_in[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x2_addend[31:0]
+trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x2_in[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

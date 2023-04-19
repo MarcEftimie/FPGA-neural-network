@@ -12,9 +12,9 @@ module activation_function_tb;
     wire activation;
 
     activation_function #(
-    .SIGN(SIGN),
-    .Q_M(Q_M),
-    .Q_N(Q_N)
+        .SIGN(SIGN),
+        .Q_M(Q_M),
+        .Q_N(Q_N)
     ) UUT(
         .*
     );

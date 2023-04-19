@@ -36,3 +36,6 @@ test_neuron : testbenches/neuron_tb.sv hdl/*
 test_neuron_trainer : testbenches/neuron_trainer_tb.sv hdl/*
 	${IVERILOG} $^ -o neuron_trainer_tb.bin && ${VVP} neuron_trainer_tb.bin ${VVP_POST} && gtkwave neuron_trainer.fst -a testbenches/sy
 
+test_trainer_top : testbenches/trainer_top_tb.sv hdl/*
+	${IVERILOG} $^ -o trainer_top_tb.bin && ${VVP} trainer_top_tb.bin ${VVP_POST} && gtkwave trainer_top.fst -a testbenches/sy
+
