@@ -4,22 +4,17 @@
 module neuron_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    parameter BIAS = 1;
-    parameter W1 = 32'b0_000000000000000_1100011101101111;
-    parameter W2 = 32'b0_000000000000000_1011001000111111;
-    parameter WB = 32'b1_000000000000000_0101001101100011;
+    parameter BIAS = 32'b0_000000000000001_0000000000000000;
     parameter SIGN = 1;
     parameter Q_M = 15;
     parameter Q_N = 16;
     logic clk_i;
-    logic x1_in, x2_in;
-    wire out;
+    logic [(SIGN + Q_M + Q_N) - 1:0] x1_in, x2_in;
+    logic [(SIGN + Q_M + Q_N) - 1:0] w1, w2, wb;
+    wire [(SIGN + Q_M + Q_N) - 1:0] out;
 
     neuron #(
     .BIAS(BIAS),
-    .W1(W1),
-    .W2(W2),
-    .WB(WB),
     .SIGN(SIGN),
     .Q_M(Q_M),
     .Q_N(Q_N)
@@ -53,7 +48,6 @@ module neuron_tb;
         x2_in = 1;
         assert(out == 1);
         repeat(1) @(negedge clk_i);
-
         $finish;
     end
 

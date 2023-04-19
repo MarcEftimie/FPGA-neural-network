@@ -4,9 +4,6 @@
 module neuron
     #(
         parameter BIAS = 32'b0_000000000000001_0000000000000000,
-        // parameter W1 = 32'b0_000000000000000_1100011101101111,
-        // parameter W2 = 32'b0_000000000000000_1011001000111111,
-        // parameter WB = 32'b1_000000000000000_0101001101100011,
         parameter SIGN = 1,
         parameter Q_M = 15,
         parameter Q_N = 16
@@ -14,16 +11,8 @@ module neuron
     (
         input wire [(SIGN + Q_M + Q_N) - 1:0] x1_in, x2_in,
         input wire [(SIGN + Q_M + Q_N) - 1:0] w1, w2, wb,
-        output logic out
+        output logic [(SIGN + Q_M + Q_N) - 1:0] out
     );
-
-    logic bias;
-    assign bias = BIAS;
-
-    // logic [(SIGN + Q_M + Q_N) - 1:0] w1, w2, wb;
-    // assign w1 = W1;
-    // assign w2 = W2;
-    // assign wb = WB;
 
     logic [(SIGN + Q_M + Q_N) - 1:0] x1_addend, x2_addend, b_addend;
 
@@ -35,7 +24,7 @@ module neuron
         .Q_M(Q_M),
         .Q_N(Q_N)
     ) MULTIPLIER_X1 (
-        .a_in({{Q_M{1'b0}}, x1_in, {Q_N{1'b0}}}),
+        .a_in(x1_in),
         .b_in(w1),
         .y_out(x1_addend)
     );
@@ -45,7 +34,7 @@ module neuron
         .Q_M(Q_M),
         .Q_N(Q_N)
     ) MULTIPLIER_X2 (
-        .a_in({{Q_M{1'b0}}, x2_in, {Q_N{1'b0}}}),
+        .a_in(x2_in),
         .b_in(w2),
         .y_out(x2_addend)
     );
@@ -55,7 +44,7 @@ module neuron
         .Q_M(Q_M),
         .Q_N(Q_N)
     ) MULTIPLIER_BIAS (
-        .a_in({{Q_M{1'b0}}, bias, {Q_N{1'b0}}}),
+        .a_in(BIAS),
         .b_in(wb),
         .y_out(b_addend)
     );

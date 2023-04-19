@@ -28,3 +28,8 @@ vivado*.str
 
 # Xilinx temporary files
 *.Xil
+
+# Python setup files
+perceptron.py
+create_testbench_templates.py
+create_project_template.py

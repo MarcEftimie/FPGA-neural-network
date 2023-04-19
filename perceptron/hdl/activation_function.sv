@@ -3,16 +3,16 @@
 
 module activation_function
     #(
-        parameter sign = 1,
-        parameter q_m = 16,
-        parameter q_n = 16
+        parameter SIGN = 1,
+        parameter Q_M = 15,
+        parameter Q_N = 16
     )
     (
-        input wire [(sign + q_m + q_n) - 1:0] summation,
-        output logic activation
+        input wire [(SIGN + Q_M + Q_N) - 1:0] summation,
+        output logic [(SIGN + Q_M + Q_N) - 1:0] activation
     );
 
-    assign activation = summation == 0 ? 0 :
-                        summation[(sign + q_m + q_n) - 1] ? 0 : 1;
+    assign activation = summation == 0 ? 32'b0_000000000000000_0000000000000000 :
+                        summation[(SIGN + Q_M + Q_N) - 1] ? 32'b0_000000000000000_0000000000000000 : 32'b0_000000000000001_0000000000000000;
 
 endmodule

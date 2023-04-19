@@ -39,3 +39,6 @@ test_activation_function : testbenches/activation_function_tb.sv hdl/*
 test_sigmoid_function : testbenches/sigmoid_function_tb.sv hdl/sigmoid_function.sv
 	${IVERILOG} $^ -o sigmoid_function_tb.bin && ${VVP} sigmoid_function_tb.bin ${VVP_POST} && gtkwave sigmoid_function.fst -a testbenches/sy
 
+test_trainer_top : testbenches/trainer_top_tb.sv hdl/*
+	${IVERILOG} $^ -o trainer_top_tb.bin && ${VVP} trainer_top_tb.bin ${VVP_POST} && gtkwave trainer_top.fst -a testbenches/sy
+
