@@ -73,7 +73,7 @@ module {module_name}_tb;
 '''
 
     for parameter_name in parameter_names:
-        template += f'    .{parameter_name}({parameter_name}),\n'
+        template += f'        .{parameter_name}({parameter_name}),\n'
 
     template = template.rstrip(',\n') + f'''
     ) UUT(

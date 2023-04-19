@@ -13,9 +13,9 @@ module fixed_point_multiplier_tb;
     wire [(SIGN+Q_M+Q_N)-1:0] y_out;
 
     fixed_point_multiplier #(
-    .SIGN(SIGN),
-    .Q_M(Q_M),
-    .Q_N(Q_N)
+        .SIGN(SIGN),
+        .Q_M(Q_M),
+        .Q_N(Q_N)
     ) UUT(
         .*
     );
