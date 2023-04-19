@@ -41,7 +41,7 @@ module neuron_trainer #(
             state_reg <= state_next;
             weight_1_reg <= weight_1_next;
             weight_2_reg <= weight_2_next;
-            weight_b_reg <= weight_bias_next;
+            weight_bias_reg <= weight_bias_next;
         end
     end
 
@@ -61,12 +61,15 @@ module neuron_trainer #(
                     .Q_N(Q_N)
                 ) NEURON (
                     .x1_in(train_x1_in),
-                    .x2_in(train_x1_in),
+                    .x2_in(train_x2_in),
                     .w1(weight_1_reg),
                     .w2(weight_2_reg),
                     .wb(weight_bias_reg),
                     .out(prediction_out)
                 );
+
+                // error = prediction - prediction_out
+                // weights = error * learning_rate * weights
                 
             end
             DONE : begin
