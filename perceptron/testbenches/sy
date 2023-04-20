@@ -1,66 +1,30 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Wed Apr 19 16:41:16 2023
+[*] Wed Apr 19 17:44:10 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/perceptron/trainer_top.fst"
-[dumpfile_mtime] "Wed Apr 19 16:39:43 2023"
-[dumpfile_size] 2316
-[savefile] "/home/marc/projects/FPGA-neural-network/perceptron/testbenches/sy"
+[dumpfile] "/home/rsiddique/FPGA-neural-network/perceptron/sigmoid_function.fst"
+[dumpfile_mtime] "Wed Apr 19 17:44:02 2023"
+[dumpfile_size] 4415
+[savefile] "/home/rsiddique/FPGA-neural-network/perceptron/testbenches/sy"
 [timestart] 0
-[size] 2560 1376
-[pos] 0 26
-*-13.000000 5530 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] trainer_top_tb.
-[treeopen] trainer_top_tb.UUT.
-[treeopen] trainer_top_tb.UUT.NEURON_TRAINER.
+[size] 1846 1016
+[pos] -1 -1
+*-13.000000 12940 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] sigmoid_function_tb.
 [sst_width] 233
 [signals_width] 498
 [sst_expanded] 1
-[sst_vpaned_height] 574
+[sst_vpaned_height] 414
+@22
+sigmoid_function_tb.UUT.addr[9:0]
 @28
-trainer_top_tb.UUT.clk_i
-trainer_top_tb.UUT.reset_i
-trainer_top_tb.UUT.state_next[2:0]
-trainer_top_tb.UUT.state_reg[2:0]
-@29
-trainer_top_tb.UUT.train_out[31:0]
-trainer_top_tb.UUT.train_x1[31:0]
-trainer_top_tb.UUT.train_x2[31:0]
-@200
--Neuron
+sigmoid_function_tb.UUT.clk_i
+@22
+sigmoid_function_tb.UUT.di[15:0]
+sigmoid_function_tb.UUT.dout[15:0]
 @28
-trainer_top_tb.UUT.NEURON_TRAINER.clk_i
-trainer_top_tb.UUT.NEURON_TRAINER.error[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.learning_rate[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.lr_error_product[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.prediction_out[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.reset_i
-trainer_top_tb.UUT.NEURON_TRAINER.train_x1_in[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.train_x2_in[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.train_out_in[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_1_reg[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_2_reg[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_reg[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_1_next[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_2_next[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_next[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_1_addend[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_2_addend[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.weight_bias_addend[31:0]
-@200
--Neuron2
-@28
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.b_addend[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.bias[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.out[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.summation_1[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.summation_2[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.w1[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.w2[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.wb[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x1_addend[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x1_in[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x2_addend[31:0]
-trainer_top_tb.UUT.NEURON_TRAINER.NEURON.x2_in[31:0]
+sigmoid_function_tb.UUT.en
+sigmoid_function_tb.UUT.reset_i
+sigmoid_function_tb.UUT.we
 [pattern_trace] 1
 [pattern_trace] 0
