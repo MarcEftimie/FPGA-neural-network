@@ -30,6 +30,16 @@ module neuron_trainer #(
         .out(prediction_out)
     );
 
+    fixed_point_adder #(
+        .SIGN(SIGN),
+        .Q_M(Q_M),
+        .Q_N(Q_N)
+    ) ERROR_ADDER (
+        .a_in(train_out_in),
+        .b_in({~prediction_out[(SIGN + Q_M + Q_N) - 1], prediction_out[(SIGN + Q_M + Q_N) - 2:0]}),
+        .sum_out(error)
+    );
+
     logic [(SIGN + Q_M + Q_N) - 1:0] lr_error_product;
 
     fixed_point_multiplier #(
@@ -74,16 +84,6 @@ module neuron_trainer #(
         .a_in(lr_error_product),
         .b_in(BIAS),
         .y_out(weight_bias_addend)
-    );
-
-    fixed_point_adder #(
-        .SIGN(SIGN),
-        .Q_M(Q_M),
-        .Q_N(Q_N)
-    ) ERROR_ADDER (
-        .a_in(train_out_in),
-        .b_in({~prediction_out[(SIGN + Q_M + Q_N) - 1], prediction_out[(SIGN + Q_M + Q_N) - 2:0]}),
-        .sum_out(error)
     );
 
     fixed_point_adder #(
