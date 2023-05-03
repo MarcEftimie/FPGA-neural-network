@@ -1,0 +1,22 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed May  3 02:33:29 2023
+[*]
+[dumpfile] "/home/marc/projects/FPGA-neural-network/neural_network/neural_network_top.fst"
+[dumpfile_mtime] "Wed May  3 02:33:20 2023"
+[dumpfile_size] 573
+[savefile] "/home/marc/projects/FPGA-neural-network/neural_network/testbenches/sy"
+[timestart] 0
+[size] 1920 1043
+[pos] 2521 -66
+*-4.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] neural_network_top_tb.
+[sst_width] 233
+[signals_width] 86
+[sst_expanded] 1
+[sst_vpaned_height] 298
+@28
+neural_network_top_tb.UUT.clk_i
+neural_network_top_tb.UUT.reset_i
+[pattern_trace] 1
+[pattern_trace] 0
