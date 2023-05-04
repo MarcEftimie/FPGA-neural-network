@@ -3,8 +3,9 @@
 
 module bram
     # (
-        parameter ADDR_LEN = 8,
-        parameter WORD_LEN = 8
+        parameter ADDR_LEN = 1,
+        parameter WORD_LEN = 1,
+        parameter ROM_FILE = "zeros.mem"
     )
     (
         input wire clk_i, reset_i,
@@ -15,6 +16,10 @@ module bram
     );
 
     logic [WORD_LEN-1:0] ram [ADDR_LEN-1:0];
+
+    initial begin
+        $readmemb({"./mem/", ROM_FILE}, ram);
+    end
     
     always_ff @(posedge clk_i, posedge reset_i) begin
         data_o = 0;
