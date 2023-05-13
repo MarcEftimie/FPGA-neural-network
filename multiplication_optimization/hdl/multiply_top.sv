@@ -47,7 +47,7 @@ module multiply_top
             product_mantissa_reg = product_mantissa_next;
         end
     end
-
+    
     always_comb begin
         state_next = state_reg;
         product_next = product_reg;
@@ -67,10 +67,10 @@ module multiply_top
             end
             NORMALIZE : begin
                 if (product_mantissa_reg[47]) begin
-                    product_next[22:0] = {product_mantissa_reg[45:24] >> 1, 1'b0};
+                    product_next[22:0] = product_mantissa_reg[46:24];
                     product_next[30:23] = product_reg[30:23] + 1;
                 end else begin
-                    product_next[22:0] = {product_mantissa_reg[45:24], 1'b0};
+                    product_next[22:0] = product_mantissa_reg[45:23];
                 end
                 state_next = DONE;
             end

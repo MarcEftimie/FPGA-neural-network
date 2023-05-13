@@ -37,7 +37,7 @@ module multiply_top_tb;
         a_i = 32'hC0400000; // -3 in IEEE 754
         b_i = 32'h40E00000; // 7 in IEEE 754
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'hC1A80000, Got: %h", product_o);
+        $display("Expected: 32'hc1a80000, Got: %h", product_o);
 
         reset_i = 1;
         repeat(1) @(negedge clk_i);
@@ -45,7 +45,7 @@ module multiply_top_tb;
 
         // Test case 3: 0 * 1 = 0
         a_i = 32'h00000000; // 0 in IEEE 754
-        b_i = 32'h3F800000; // 1 in IEEE 754
+        b_i = 32'h3f800000; // 1 in IEEE 754
         repeat(3) @(negedge clk_i);
         $display("Expected: 32'h00000000, Got: %h", product_o);
 
@@ -54,10 +54,20 @@ module multiply_top_tb;
         reset_i = 0;
 
         // Test case 4: 1.5 * 1.5 = 2.25
-        a_i = 32'h3FC00000; // 1.5 in IEEE 754
-        b_i = 32'h3FC00000; // 1.5 in IEEE 754
+        a_i = 32'h3fC00000; // 1.5 in IEEE 754
+        b_i = 32'h3fC00000; // 1.5 in IEEE 754
         repeat(3) @(negedge clk_i);
         $display("Expected: 32'h40100000, Got: %h", product_o);
+
+        reset_i = 1;
+        repeat(1) @(negedge clk_i);
+        reset_i = 0;
+
+        // Test case 4: 1.5 * 1.5 = 2.25
+        assign a_i = 32'h3f7fffff; // 1.9999998807907104 in IEEE 754
+        assign b_i = 32'h3f7fffff; // 1.9999998807907104 in IEEE 754
+        repeat(3) @(negedge clk_i);
+        $display("Expected: 32'h3ffffffe, Got: %h", product_o);
 
         $finish;
     end
