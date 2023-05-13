@@ -3,34 +3,60 @@
 
 module neural_network_top
     #(
-        parameter ADDR_LEN = 2,
-        parameter DATA_LEN = 16
+        // Hyperparameters
+        parameter EPOCH_COUNT = 5,
+        parameter INPUT_COUNT = 3,
+        parameter OUTPUT_COUNT = 1,
+        parameter NETWORK_ADDR_LEN = 5,
+        parameter NETWORK_DATA_LEN = 32,
+        parameter TRAINER_ADDR_LEN = 4,
+        parameter TRAINER_DATA_LEN = 32
     ) (
         input wire clk_i, reset_i
     );
 
     bram #(
-        .ADDR_LEN(2),
-        .WORD_LEN(16),
-        .ROM_FILE("topology.mem")
-    ) TOPOLOGY (
+        .ADDR_LEN(NETWORK_ADDR_LEN),
+        .WORD_LEN(NETWORK_DATA_LEN),
+        .ROM_FILE("network.mem")
+    ) NETWORK_RAM (
         .clk_i(clk_i),
         .reset_i(reset_i),
-        .ena_i(topology_ena_reg),
+        .ena_i(network_ena_reg),
         .wr_ena_i(wr_ena_reg),
         .addr_i(addr_reg),
         .data_i(wr_data_reg),
         .data_o(rd_data)
     );
 
-    typedef enum logic [1:0] {
+    bram #(
+        .ADDR_LEN(TRAINER_ADDR_LEN),
+        .WORD_LEN(TRAINER_DATA_LEN),
+        .ROM_FILE("trainer.mem")
+    ) TRAINER_RAM (
+        .clk_i(clk_i),
+        .reset_i(reset_i),
+        .ena_i(trainer_ena_reg),
+        .wr_ena_i(wr_ena_reg),
+        .addr_i(addr_reg),
+        .data_i(wr_data_reg),
+        .data_o(rd_data)
+    );
+
+    typedef enum logic [2:0] {
         IDLE,
-        GENERATE_TOPOLOGY
+        TRAINING_LOOP,
+        INIT_FORWARD_PROPAGATION,
+        FORWARD_PROPAGATION,
+        INIT_BACK_PROPAGATION,
+        BACK_PROPAGATION,
+        DONE
     } state_t;
 
     state_t state_reg, state_next;
 
-    logic topology_ena_reg, topology_ena_next;
+    logic network_ena_reg, network_ena_next;
+    logic trainer_ena_reg, trainer_ena_next;
     
     logic wr_ena_reg, wr_ena_next;
     logic [ADDR_LEN-1:0] addr_reg, addr_next;
@@ -39,17 +65,25 @@ module neural_network_top
 
     logic [ADDR_LEN-1:0] addr_counter_reg, addr_counter_next;
 
+    logic [$clog2(EPOCH_COUNT)-1:0] epoch_count_reg, epoch_count_next;
+
     always_ff @(posedge clk_i, posedge reset_i) begin
         if (reset_i) begin
             state_reg = IDLE;
-            topology_ena_reg = 0;
+            network_ena_reg = 0;
+            trainer_ena_reg = 0;
             addr_reg = 0;
             wr_data_reg = 0;
+
+            epoch_count_reg = 0;
         end else begin
             state_reg = state_next;
-            topology_ena_reg = topology_ena_next;
+            network_ena_reg = network_ena_next;
+            trainer_ena_reg = trainer_ena_next;
             addr_reg = addr_next;
             wr_data_reg = wr_data_next;
+
+            epoch_count_reg = epoch_count_next;
         end
     end
 
@@ -59,14 +93,23 @@ module neural_network_top
         addr_next = addr_reg;
         wr_data_next = wr_data_reg;
 
+        network_ena_next = 0;
+        trainer_ena_next = 0;
+
+        epoch_count_next = epoch_count_reg;
+
         case (state_reg)
             IDLE : begin
-                state_next = GENERATE_TOPOLOGY;
-                topology_ena_next = 1;
-                addr_next = 0;
+                state_next = TRAINING_LOOP;
             end
-            GENERATE_TOPOLOGY : begin
-                addr_next = addr_reg + 1;
+            TRAINING_LOOP : begin
+                if (epoch_count_reg == EPOCH_COUNT) begin
+                    state_next = DONE;
+                end else begin
+                    
+                    epoch_count_next = epoch_count_reg + 1;
+                    state_next = INIT_FORWARD_PROPAGATION;
+                end
                 
             end
             default: begin
