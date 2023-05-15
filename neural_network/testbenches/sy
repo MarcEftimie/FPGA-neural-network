@@ -1,22 +1,46 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Wed May  3 02:33:29 2023
+[*] Mon May 15 05:35:51 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/neural_network/neural_network_top.fst"
-[dumpfile_mtime] "Wed May  3 02:33:20 2023"
-[dumpfile_size] 573
+[dumpfile] "/home/marc/projects/FPGA-neural-network/neural_network/nnt.fst"
+[dumpfile_mtime] "Mon May 15 05:35:39 2023"
+[dumpfile_size] 1094
 [savefile] "/home/marc/projects/FPGA-neural-network/neural_network/testbenches/sy"
 [timestart] 0
-[size] 1920 1043
-[pos] 2521 -66
-*-4.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] neural_network_top_tb.
+[size] 1920 1016
+[pos] 2521 0
+*-15.000000 89900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] nnt_tb.
 [sst_width] 233
-[signals_width] 86
+[signals_width] 222
 [sst_expanded] 1
 [sst_vpaned_height] 298
 @28
-neural_network_top_tb.UUT.clk_i
-neural_network_top_tb.UUT.reset_i
+nnt_tb.UUT.clk_i
+nnt_tb.UUT.count_next[2:0]
+nnt_tb.UUT.count_reg[2:0]
+nnt_tb.UUT.ena
+nnt_tb.UUT.init_next
+nnt_tb.UUT.init_reg
+nnt_tb.UUT.multiplier_ena
+@22
+nnt_tb.UUT.multiplier_output[47:0]
+nnt_tb.UUT.neuron_output_next[31:0]
+nnt_tb.UUT.neuron_output_reg[31:0]
+nnt_tb.UUT.neuron_weight_next[31:0]
+nnt_tb.UUT.neuron_weight_reg[31:0]
+@28
+nnt_tb.UUT.rd_addr
+@22
+nnt_tb.UUT.rd_data[31:0]
+@28
+nnt_tb.UUT.reset_i
+nnt_tb.UUT.state_next[2:0]
+nnt_tb.UUT.state_reg[2:0]
+nnt_tb.UUT.wr_addr
+@22
+nnt_tb.UUT.wr_data[31:0]
+@28
+nnt_tb.UUT.wr_ena
 [pattern_trace] 1
 [pattern_trace] 0

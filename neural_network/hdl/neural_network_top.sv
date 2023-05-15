@@ -69,23 +69,40 @@ module neural_network_top
 
     always_ff @(posedge clk_i, posedge reset_i) begin
         if (reset_i) begin
-            state_reg = IDLE;
-            network_ena_reg = 0;
-            trainer_ena_reg = 0;
-            addr_reg = 0;
-            wr_data_reg = 0;
-
-            epoch_count_reg = 0;
+            clk_1 <= 0;
+            state_reg <= IDLE;
+            network_ena_reg <= 0;
+            trainer_ena_reg <= 0;
+            addr_reg <= 0;
+            wr_data_reg <= 0;
+            epoch_count_reg <= 0;
         end else begin
-            state_reg = state_next;
-            network_ena_reg = network_ena_next;
-            trainer_ena_reg = trainer_ena_next;
-            addr_reg = addr_next;
-            wr_data_reg = wr_data_next;
-
-            epoch_count_reg = epoch_count_next;
+            clk_1 <= ~clk_1;
+            state_reg <= state_next;
+            network_ena_reg <= network_ena_next;
+            trainer_ena_reg <= trainer_ena_next;
+            addr_reg <= addr_next;
+            wr_data_reg <= wr_data_next;
+            epoch_count_reg <= epoch_count_next;
         end
     end
+
+    always_ff @(posedge clk_i, posedge reset_i) begin
+        if (reset_i) begin
+            neuron_output_reg = 0;
+            neuron_weight_reg = 0;
+            counter_reg = 0;
+        end else begin
+            neuron_output_reg = neuron_output_next;
+            neuron_weight_reg = neuron_weight_next;
+            counter_reg = counter_next;
+        end
+    end
+
+    logic [31:0] neuron_output_reg, neuron_output_next;
+    logic [31:0] neuron_weight_reg, neuron_weight_next;
+
+    logic [2:0] counter_next, counter_reg;
 
     always_comb begin
         state_next = state_reg;
@@ -98,24 +115,46 @@ module neural_network_top
 
         epoch_count_next = epoch_count_reg;
 
+        neuron_output_next = neuron_output_reg;
+        neuron_weight_next = neuron_weight_reg;
+        counter_next = counter_reg;
+
+        multiplier_ena = 0;
+
         case (state_reg)
             IDLE : begin
                 state_next = TRAINING_LOOP;
             end
-            TRAINING_LOOP : begin
-                if (epoch_count_reg == EPOCH_COUNT) begin
-                    state_next = DONE;
-                end else begin
-                    
-                    epoch_count_next = epoch_count_reg + 1;
-                    state_next = INIT_FORWARD_PROPAGATION;
-                end
-                
+            CALCULATE_NEURON_OUTPUT : begin
+                // init count = 0;
+                case (count)
+                    0 : begin
+                        rd_address = 0; // get neuron output
+                    end
+                    1 : begin
+                        rd_address = 1; // get neuron weight
+                        neuron_output_next = rd_data;
+                        multiplier_ena = 1;
+                    end
+                    2 : begin
+                        neuron_weight_next = rd_data;
+                    end
+                endcase
+                counter_next = counter_reg + 1;
+                // s1 - rd o
+                // s2 - rd w
             end
             default: begin
                 state_next = IDLE;
             end
         endcase
+    end
+
+    logic multiplier_ena;
+    logic [47:0] multiplier_output;
+
+    always_ff @(posedge multiplier_ena) begin
+        multiplier_output <= {1'b1, neuron_output_reg[22:0]} * {1'b1, neuron_weight_reg[22:0]};
     end
     
 

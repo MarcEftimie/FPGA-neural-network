@@ -24,3 +24,12 @@ program_fpga_vivado: $(SRCS) $(MAIN_MEMSMEMORIES) build.tcl program.tcl Nexys-4-
 test_neural_network_top : testbenches/neural_network_top_tb.sv hdl/*
 	${IVERILOG} $^ -o neural_network_top_tb.bin && ${VVP} neural_network_top_tb.bin ${VVP_POST} && gtkwave neural_network_top.fst -a testbenches/sy
 
+test_bram : testbenches/bram_tb.sv hdl/*
+	${IVERILOG} $^ -o bram_tb.bin && ${VVP} bram_tb.bin ${VVP_POST} && gtkwave bram.fst -a testbenches/sy
+
+test_multiplier : testbenches/multiplier_tb.sv hdl/*
+	${IVERILOG} $^ -o multiplier_tb.bin && ${VVP} multiplier_tb.bin ${VVP_POST} && gtkwave multiplier.fst -a testbenches/sy
+
+test_nnt : testbenches/nnt_tb.sv hdl/nnt.sv hdl/bram.sv
+	${IVERILOG} $^ -o nnt_tb.bin && ${VVP} nnt_tb.bin ${VVP_POST} && gtkwave nnt.fst -a testbenches/sy
+

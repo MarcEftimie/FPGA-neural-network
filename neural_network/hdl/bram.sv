@@ -3,14 +3,14 @@
 
 module bram
     # (
-        parameter ADDR_LEN = 1,
-        parameter WORD_LEN = 1,
+        parameter ADDR_LEN = 5,
+        parameter WORD_LEN = 32,
         parameter ROM_FILE = "zeros.mem"
     )
     (
-        input wire clk_i, reset_i,
+        input wire clk_i,
         input wire ena_i, wr_ena_i,
-        input wire [ADDR_LEN-1:0] addr_i,
+        input wire [$clog2(ADDR_LEN)-1:0] rd_addr_i, wr_addr_i,
         input wire [WORD_LEN-1:0] data_i,
         output logic [WORD_LEN-1:0] data_o
     );
@@ -21,13 +21,13 @@ module bram
         $readmemb({"./mem/", ROM_FILE}, ram);
     end
     
-    always_ff @(posedge clk_i, posedge reset_i) begin
-        data_o = 0;
+    always_ff @(posedge clk_i) begin
+        data_o <= 0;
         if (ena_i) begin
             if (wr_ena_i) begin
-                ram[addr_i] = data_i;
+                ram[wr_addr_i] <= data_i;
             end
-            data_o = ram[addr_i];
+            data_o <= ram[rd_addr_i];
         end
     end
     

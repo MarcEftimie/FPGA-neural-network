@@ -1,23 +1,11 @@
-// LUT: 50
-// FF: 36
-// DSP: 2 
-
 `timescale 1ns/1ps
 `default_nettype none
 
-module multiply_top
+module multipier
     (
         input wire clk_i, reset_i,
         input wire [31:0] a_i, b_i,
         output logic [31:0] product_o
-    );
-
-    logic clk_out1;
-
-    clk_wiz_0 clk_wiz_inst (
-        .clk_in1(clk_i), 
-        .clk_out1(clk_out1), 
-        .reset(reset_i)
     );
 
     logic sign_a;
@@ -48,7 +36,7 @@ module multiply_top
     assign exponent_b = b_i[30:23];
     assign mantissa_b = b_i[22:0];
 
-    always @(posedge clk_out1) begin
+    always @(posedge clk_i) begin
         if (reset_i) begin
             state_reg <= IDLE;
             product_reg <= 0;
