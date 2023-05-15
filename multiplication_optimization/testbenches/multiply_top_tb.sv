@@ -22,52 +22,76 @@ module multiply_top_tb;
         reset_i = 1;
         repeat(1) @(negedge clk_i);
         reset_i = 0;
-        
-        // Test case 1: 2.5 * 4 = 10
-        a_i = 32'h40200000; // 2.5 in IEEE 754
-        b_i = 32'h40800000; // 4 in IEEE 754
+
+        // Multiply 1 by 1
+        a_i = 32'h3F800000; // 1
+        b_i = 32'h3F800000; // 1
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'h41200000, Got: %h", product_o);
+        assert(product_o == 32'h3F800000) else $error("Expected: 32'h3F800000, Got: %h", product_o);
 
         reset_i = 1;
         repeat(1) @(negedge clk_i);
         reset_i = 0;
 
-        // Test case 2: -3 * 7 = -21
-        a_i = 32'hC0400000; // -3 in IEEE 754
-        b_i = 32'h40E00000; // 7 in IEEE 754
+        // Multiply two floats with 0 mantissa
+        a_i = 32'h40400000; // 3
+        b_i = 32'h40800000; // 4
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'hc1a80000, Got: %h", product_o);
+        assert(product_o == 32'h41400000) else $error("Expected: 32'h41400000, Got: %h", product_o);
 
         reset_i = 1;
         repeat(1) @(negedge clk_i);
         reset_i = 0;
 
-        // Test case 3: 0 * 1 = 0
-        a_i = 32'h00000000; // 0 in IEEE 754
-        b_i = 32'h3f800000; // 1 in IEEE 754
+        // Multiply two floats with decimal values greater than 1
+        a_i = 32'h40b00000; // 5.5
+        b_i = 32'h40f00000; // 7.5
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'h00000000, Got: %h", product_o);
+        assert(product_o == 32'h42250000) else $error("Expected: 32'h42250000, Got: %h", product_o);
 
         reset_i = 1;
         repeat(1) @(negedge clk_i);
         reset_i = 0;
 
-        // Test case 4: 1.5 * 1.5 = 2.25
-        a_i = 32'h3fC00000; // 1.5 in IEEE 754
-        b_i = 32'h3fC00000; // 1.5 in IEEE 754
+        // Multiply two floats with decimal values
+        a_i = 32'h40b00000; // 5.5
+        b_i = 32'h3f400000; // 0.75
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'h40100000, Got: %h", product_o);
+        assert(product_o == 32'h40840000) else $error("Expected: 32'h40840000, Got: %h", product_o);
 
         reset_i = 1;
         repeat(1) @(negedge clk_i);
         reset_i = 0;
 
-        // Test case 4: 1.5 * 1.5 = 2.25
-        assign a_i = 32'h3f7fffff; // 1.9999998807907104 in IEEE 754
-        assign b_i = 32'h3f7fffff; // 1.9999998807907104 in IEEE 754
+        // Multiply two floats with decimal values
+        a_i = 32'h3f000000; // 0.5
+        b_i = 32'h3f400000; // 0.75
         repeat(3) @(negedge clk_i);
-        $display("Expected: 32'h3ffffffe, Got: %h", product_o);
+        assert(product_o == 32'h3ec00000) else $error("Expected: 32'h3ec00000, Got: %h", product_o);
+
+        reset_i = 1;
+        repeat(1) @(negedge clk_i);
+        reset_i = 0;
+
+        // Multiply two floats with repeating binary representations
+        a_i = 32'h3de7a0f9; // 0.1131
+        b_i = 32'h3f400000; // 0.75
+        repeat(3) @(negedge clk_i);
+        assert(product_o == 32'h3dadb8ba) else $error("Expected: 32'h3dadb8ba, Got: %h", product_o);
+
+        reset_i = 1;
+        repeat(1) @(negedge clk_i);
+        reset_i = 0;
+
+        // Multiply two floats that increases overflows the mantissa
+        a_i = 32'h3f733333; // 0.95
+        b_i = 32'h3f733333; // 0.95
+        repeat(3) @(negedge clk_i);
+        assert(product_o == 32'h3f670a3d) else $error("Expected: 32'h3f670a3d, Got: %h", product_o);
+
+        reset_i = 1;
+        repeat(1) @(negedge clk_i);
+        reset_i = 0;
 
         $finish;
     end

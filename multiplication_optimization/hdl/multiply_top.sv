@@ -1,3 +1,7 @@
+// LUT: 50
+// FF: 36
+// DSP: 2 
+
 `timescale 1ns/1ps
 `default_nettype none
 
@@ -6,6 +10,14 @@ module multiply_top
         input wire clk_i, reset_i,
         input wire [31:0] a_i, b_i,
         output logic [31:0] product_o
+    );
+
+    logic clk_out1;
+
+    clk_wiz_0 clk_wiz_inst (
+        .clk_in1(clk_i), 
+        .clk_out1(clk_out1), 
+        .reset(reset_i)
     );
 
     logic sign_a;
@@ -36,7 +48,7 @@ module multiply_top
     assign exponent_b = b_i[30:23];
     assign mantissa_b = b_i[22:0];
 
-    always @(posedge clk_i) begin
+    always @(posedge clk_out1) begin
         if (reset_i) begin
             state_reg = IDLE;
             product_reg = 0;
@@ -59,17 +71,15 @@ module multiply_top
             end
             MULTIPLY : begin
                 product_mantissa_next = {1'b1, mantissa_a} * {1'b1, mantissa_b};
-
-                product_next[31] = sign_a ^ sign_b;
-                product_next[30:23] = exponent_a + exponent_b - 8'd127;
-
                 state_next = NORMALIZE;
             end
             NORMALIZE : begin
+                product_next[31] = sign_a ^ sign_b;
                 if (product_mantissa_reg[47]) begin
+                    product_next[30:23] = exponent_a + exponent_b - 8'd127 + 1;
                     product_next[22:0] = product_mantissa_reg[46:24];
-                    product_next[30:23] = product_reg[30:23] + 1;
                 end else begin
+                    product_next[30:23] = exponent_a + exponent_b - 8'd127;
                     product_next[22:0] = product_mantissa_reg[45:23];
                 end
                 state_next = DONE;
