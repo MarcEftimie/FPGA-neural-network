@@ -3,8 +3,9 @@
 
 module nnt
     #(
-        parameter ADDR_LEN = 2,
-        parameter DATA_LEN = 32
+        parameter ADDR_LEN = 2**16,
+        parameter DATA_LEN = 32,
+        parameter LAYER_COUNT = 2
     )
     (
         input wire clk_i, reset_i
@@ -26,6 +27,8 @@ module nnt
 
     typedef enum logic [2:0] {
         IDLE,
+        INIT_PREV_LAYER_COUNT,
+        INIT_CURRENT_LAYER_COUNT,
         CALCULATE_NEURON_OUTPUT,
         DONE
     } state_t;
@@ -40,25 +43,25 @@ module nnt
     logic [DATA_LEN-1:0] rd_data;
     logic [DATA_LEN-1:0] wr_data;
 
-    always_ff @(posedge clk_i, posedge reset_i) begin
+    always_ff @(posedge clk_i) begin
         if (reset_i) begin
             state_reg <= IDLE;
+            neuron_output_reg <= 0;
+            neuron_weight_reg <= 0;
+            count_reg <= 0;
+            init_reg <= 0;
+            prev_layer_neuron_count_reg <= 0;
+            curr_layer_neuron_count_reg <= 0;
+            layer_count_reg <= 0;
         end else begin
             state_reg <= state_next;
-        end
-    end
-
-    always_ff @(posedge clk_i, posedge reset_i) begin
-        if (reset_i) begin
-            neuron_output_reg = 0;
-            neuron_weight_reg = 0;
-            count_reg = 0;
-            init_reg = 0;
-        end else begin
-            neuron_output_reg = neuron_output_next;
+            neuron_output_reg <= neuron_output_next;
             neuron_weight_reg = neuron_weight_next;
-            count_reg = count_next;
-            init_reg = init_next;
+            count_reg <= count_next;
+            init_reg <= init_next;
+            prev_layer_neuron_count_reg <= prev_layer_neuron_count_next;
+            curr_layer_neuron_count_reg <= curr_layer_neuron_count_next;
+            layer_count_reg <= layer_count_next;
         end
     end
 
@@ -68,6 +71,10 @@ module nnt
     logic [2:0] count_next, count_reg;
 
     logic init_reg, init_next;
+
+    logic [31:0] prev_layer_neuron_count_reg, prev_layer_neuron_count_next;
+    logic [31:0] curr_layer_neuron_count_reg, curr_layer_neuron_count_next;
+    logic [15:0] layer_count_reg, layer_count_next;
 
     always_comb begin
         state_next = state_reg;
@@ -84,13 +91,30 @@ module nnt
 
         multiplier_ena = 0;
 
+        prev_layer_neuron_count_next = prev_layer_neuron_count_reg;
+        curr_layer_neuron_count_next = curr_layer_neuron_count_reg;
+        layer_count_next = layer_count_reg;
+
         case (state_reg)
             IDLE : begin
+                if (layer_count_reg < LAYER_COUNT-1) begin
+                    rd_addr = layer_count_reg;
+                    layer_count_next = layer_count_reg + 1;
+                    state_next = INIT_PREV_LAYER_COUNT;
+                end
+                state_next = IDLE;
+            end
+            INIT_PREV_LAYER_COUNT : begin
+                rd_addr = layer_count_reg;
+                prev_layer_neuron_count_next = rd_data;
+                state_next = INIT_CURRENT_LAYER_COUNT;
+            end
+            INIT_CURRENT_LAYER_COUNT : begin
+                curr_layer_neuron_count_next = rd_data;
                 init_next = 1;
                 state_next = CALCULATE_NEURON_OUTPUT;
             end
             CALCULATE_NEURON_OUTPUT : begin
-                // init count = 0;
                 case (count_reg)
                     0 : begin
                         rd_addr = 0;
