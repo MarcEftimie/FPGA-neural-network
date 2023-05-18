@@ -1,41 +1,39 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sat May 13 09:06:41 2023
+[*] Thu May 18 02:50:11 2023
 [*]
-[dumpfile] "/home/marc/projects/FPGA-neural-network/multiplication_optimization/multiply_top.fst"
-[dumpfile_mtime] "Sat May 13 09:06:31 2023"
-[dumpfile_size] 991
+[dumpfile] "/home/marc/projects/FPGA-neural-network/multiplication_optimization/sum_top.fst"
+[dumpfile_mtime] "Thu May 18 02:50:07 2023"
+[dumpfile_size] 768
 [savefile] "/home/marc/projects/FPGA-neural-network/multiplication_optimization/testbenches/sy"
 [timestart] 0
 [size] 1920 1016
 [pos] -1 -1
-*-13.000000 29490 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] multiply_top_tb.
+*-13.000000 14170 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] sum_top_tb.
 [sst_width] 233
 [signals_width] 246
 [sst_expanded] 1
 [sst_vpaned_height] 289
 @22
-multiply_top_tb.UUT.a_i[31:0]
-multiply_top_tb.UUT.b_i[31:0]
+sum_top_tb.UUT.a[31:0]
+sum_top_tb.UUT.a_exp[7:0]
+sum_top_tb.UUT.a_frac[22:0]
+sum_top_tb.UUT.a_frac_aligned[22:0]
 @28
-multiply_top_tb.UUT.clk_i
+sum_top_tb.UUT.a_sign
 @22
-multiply_top_tb.UUT.exponent_a[7:0]
-multiply_top_tb.UUT.exponent_b[7:0]
-multiply_top_tb.UUT.mantissa_a[22:0]
-multiply_top_tb.UUT.mantissa_b[22:0]
-@29
-multiply_top_tb.UUT.product_mantissa_next[47:0]
-multiply_top_tb.UUT.product_mantissa_reg[47:0]
-multiply_top_tb.UUT.product_next[31:0]
-multiply_top_tb.UUT.product_o[31:0]
-multiply_top_tb.UUT.product_reg[31:0]
+sum_top_tb.UUT.b[31:0]
+sum_top_tb.UUT.b_exp[7:0]
+sum_top_tb.UUT.b_frac[22:0]
+sum_top_tb.UUT.b_frac_aligned[22:0]
 @28
-multiply_top_tb.UUT.reset_i
-multiply_top_tb.UUT.sign_a
-multiply_top_tb.UUT.sign_b
-multiply_top_tb.UUT.state_next[1:0]
-multiply_top_tb.UUT.state_reg[1:0]
+sum_top_tb.UUT.b_sign
+sum_top_tb.UUT.exp_diff
+@22
+sum_top_tb.UUT.frac_sum[23:0]
+sum_top_tb.UUT.sum[31:0]
+sum_top_tb.UUT.sum_exp[7:0]
+sum_top_tb.UUT.sum_frac[22:0]
 [pattern_trace] 1
 [pattern_trace] 0

@@ -57,6 +57,7 @@ module nnt
             a_count_reg <= 0;
             b_count_reg <= 0;
             neuron_count_reg <= 0;
+            sum_reg <= 0;
         end else begin
             state_reg <= state_next;
             neuron_output_reg <= neuron_output_next;
@@ -69,6 +70,7 @@ module nnt
             a_count_reg <= a_count_next;
             b_count_reg <= b_count_next;
             neuron_count_reg <= neuron_count_next;
+            sum_reg <= sum_next;
         end
     end
 
@@ -90,6 +92,8 @@ module nnt
     logic [15:0] layer_count_reg, layer_count_next;
 
     logic [15:0] neuron_count_reg, neuron_count_next;
+
+    real sum_reg, sum_next;
 
     always_comb begin
         state_next = state_reg;
@@ -161,8 +165,19 @@ module nnt
                                 wr_data[30:23] = neuron_output_reg[30:23] + neuron_weight_reg[30:23] - 8'd127;
                                 wr_data[22:0] = multiplier_output[45:23];
                             end
-                            wr_ena = 1;
-                            wr_addr = 100;
+                            // Cast bit vectors to shortreal
+                            shortreal sum_reg;
+                            assign a_real = $bitstoreal(a);
+
+                            shortreal b_real;
+                            assign b_real = $bitstoreal(b);
+
+                            // Add and cast back to bit vector
+                            shortreal sum_real;
+                            assign sum_real = a_real + b_real;
+                            assign sum = $realtobits(sum_real);
+                            // wr_ena = 1;
+                            // wr_addr = 100;
                         end
                         init_next = 0;
                         count_next = 1;

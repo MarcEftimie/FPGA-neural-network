@@ -24,3 +24,6 @@ program_fpga_vivado: $(SRCS) $(MAIN_MEMSMEMORIES) build.tcl program.tcl Nexys-4-
 test_multiply_top : testbenches/multiply_top_tb.sv hdl/*
 	${IVERILOG} $^ -o multiply_top_tb.bin && ${VVP} multiply_top_tb.bin ${VVP_POST} && gtkwave multiply_top.fst -a testbenches/sy
 
+test_sum_top : testbenches/sum_top_tb.sv hdl/sum_top.sv
+	${IVERILOG} $^ -o sum_top_tb.bin && ${VVP} sum_top_tb.bin ${VVP_POST} && gtkwave sum_top.fst -a testbenches/sy
+
