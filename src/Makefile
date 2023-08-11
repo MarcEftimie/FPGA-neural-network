@@ -38,3 +38,9 @@ test_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv hdl/*
 
 wave_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv
 	gtkwave fixed_point_multiplier.fst --save=fixed_point_multiplier.gtkw
+	
+test_adder : testbenches/adder_tb.sv hdl/*
+	${IVERILOG} adder.bin ./testbenches/adder_tb.sv ./hdl/adder.sv && ${VVP} adder.bin ${VVP_POST}
+
+wave_adder : testbenches/adder_tb.sv
+	gtkwave adder.fst --save=adder.gtkw
