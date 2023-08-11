@@ -12,7 +12,7 @@ module multiplier_tb;
     logic [FACTOR_WIDTH-1:0] multiplier_in;
     wire [PRODUCT_WIDTH-1:0] product_out;
     logic [PRODUCT_WIDTH-1:0] expected_product_out;
-    logic [3:0] edge_values;
+    logic [PRODUCT_WIDTH-1:0] edge_values [3:0];
     int i;
     int j;
 

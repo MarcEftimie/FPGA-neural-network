@@ -1,0 +1,25 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Fri Aug 11 18:23:20 2023
+[*]
+[dumpfile] "/Users/marce/fpga/FPGA-neural-network/src/fixed_point_multiplier.fst"
+[dumpfile_mtime] "Fri Aug 11 18:22:55 2023"
+[dumpfile_size] 42750
+[savefile] "/Users/marce/fpga/FPGA-neural-network/src/fixed_point_multiplier.gtkw"
+[timestart] 113500
+[size] 1728 1051
+[pos] -1 -1
+*-17.000000 300200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fixed_point_multiplier_tb.
+[sst_width] 193
+[signals_width] 219
+[sst_expanded] 1
+[sst_vpaned_height] 335
+@421
+fixed_point_multiplier_tb.UUT.fixed_point_1_in[15:0]
+fixed_point_multiplier_tb.UUT.fixed_point_2_in[15:0]
+fixed_point_multiplier_tb.UUT.product_out[15:0]
+@28
+fixed_point_multiplier_tb.UUT.clk_in
+[pattern_trace] 1
+[pattern_trace] 0
