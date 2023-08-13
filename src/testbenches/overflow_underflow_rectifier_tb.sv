@@ -7,8 +7,8 @@ module overflow_underflow_rectifier_tb;
     parameter UNRECTIFIED_DATA_WIDTH = 32;
     parameter RECTIFIED_DATA_WIDTH = 16;
     logic clk_in;
-    logic [UNRECTIFIED_DATA_WIDTH-1:0] unrectified_data_in;
-    wire [RECTIFIED_DATA_WIDTH-1:0] rectified_data_out;
+    logic [UNRECTIFIED_DATA_WIDTH-1:0] unrectified_num_in;
+    wire [RECTIFIED_DATA_WIDTH-1:0] rectified_num_out;
     localparam MAX_VALUE = (2**(RECTIFIED_DATA_WIDTH-1)) - 1;
     localparam MIN_VALUE = -(2**(RECTIFIED_DATA_WIDTH-1));
 
@@ -27,43 +27,43 @@ module overflow_underflow_rectifier_tb;
         clk_in = 0;
 
         // Test the max unrectified value
-        unrectified_data_in = 32'h7FFFFFFF;
+        unrectified_num_in = 32'h7FFFFFFF;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for max unrectified input");
+        if(rectified_num_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for max unrectified input");
 
         // Test the min unrectified value
-        unrectified_data_in = 32'h80000000;
+        unrectified_num_in = 32'h80000000;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for min unrectified input");
+        if(rectified_num_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for min unrectified input");
 
         // Test a value greater than the max 2's complement 16-bit value
-        unrectified_data_in = MAX_VALUE + 1;
+        unrectified_num_in = MAX_VALUE + 1;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input greater than MAX_VALUE");
+        if(rectified_num_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input greater than MAX_VALUE");
 
         // Test a value less than the min 2's complement 16-bit value
-        unrectified_data_in = MIN_VALUE - 1;
+        unrectified_num_in = MIN_VALUE - 1;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input less than MIN_VALUE");
+        if(rectified_num_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input less than MIN_VALUE");
 
         // Test a value equal to the max 2's complement 16-bit value
-        unrectified_data_in = MAX_VALUE;
+        unrectified_num_in = MAX_VALUE;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input equal to MAX_VALUE");
+        if(rectified_num_out != MAX_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input equal to MAX_VALUE");
 
         // Test a value equal to the min 2's complement 16-bit value
-        unrectified_data_in = MIN_VALUE;
+        unrectified_num_in = MIN_VALUE;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input equal to MIN_VALUE");
+        if(rectified_num_out != MIN_VALUE[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input equal to MIN_VALUE");
 
         // Test some normal values
-        unrectified_data_in = 12345;
+        unrectified_num_in = 12345;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out !== unrectified_data_in[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input 12345");
+        if(rectified_num_out !== unrectified_num_in[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input 12345");
 
-        unrectified_data_in = -12345;
+        unrectified_num_in = -12345;
         repeat(2) @(negedge clk_in);
-        if(rectified_data_out !== unrectified_data_in[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input -12345");
+        if(rectified_num_out !== unrectified_num_in[RECTIFIED_DATA_WIDTH-1:0]) $display("Failed for input -12345");
         repeat(2) @(negedge clk_in);
 
         $finish;

@@ -30,17 +30,27 @@ test_overflow_underflow_rectifier : testbenches/overflow_underflow_rectifier_tb.
 	${IVERILOG} overflow_underflow_rectifier.bin ./testbenches/overflow_underflow_rectifier_tb.sv ./hdl/overflow_underflow_rectifier.sv && ${VVP} overflow_underflow_rectifier.bin ${VVP_POST}
 
 wave_overflow_underflow_rectifier : testbenches/overflow_underflow_rectifier_tb.sv
-	gtkwave overflow_underflow_rectifier.fst --save=overflow_underflow_rectifier.gtkwtest_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv hdl/*
-	${IVERILOG} fixed_point_multiplier.bin ./testbenches/fixed_point_multiplier_tb.sv ./hdl/fixed_point_multiplier.sv && ${VVP} fixed_point_multiplier.bin ${VVP_POST}
+	gtkwave overflow_underflow_rectifier.fst --save=overflow_underflow_rectifier.gtkwtest_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv hdl/*
+	${IVERILOG} signed_fixed_point_multiplier.bin ./testbenches/signed_fixed_point_multiplier_tb.sv ./hdl/signed_fixed_point_multiplier.sv && ${VVP} signed_fixed_point_multiplier.bin ${VVP_POST}
 
-test_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv hdl/*
-	${IVERILOG} fixed_point_multiplier.bin ./testbenches/fixed_point_multiplier_tb.sv ./hdl/* && ${VVP} fixed_point_multiplier.bin ${VVP_POST}
+test_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv hdl/*
+	${IVERILOG} signed_fixed_point_multiplier.bin ./testbenches/signed_fixed_point_multiplier_tb.sv ./hdl/* && ${VVP} signed_fixed_point_multiplier.bin ${VVP_POST}
 
-wave_fixed_point_multiplier : testbenches/fixed_point_multiplier_tb.sv
-	gtkwave fixed_point_multiplier.fst --save=fixed_point_multiplier.gtkw
+wave_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv
+	gtkwave signed_fixed_point_multiplier.fst --save=signed_fixed_point_multiplier.gtkw
 	
 test_adder : testbenches/adder_tb.sv hdl/*
 	${IVERILOG} adder.bin ./testbenches/adder_tb.sv ./hdl/adder.sv && ${VVP} adder.bin ${VVP_POST}
 
 wave_adder : testbenches/adder_tb.sv
 	gtkwave adder.fst --save=adder.gtkw
+test_vector_multiplier : testbenches/vector_multiplier_tb.sv hdl/*
+	${IVERILOG} vector_multiplier.bin ./testbenches/vector_multiplier_tb.sv ./hdl/vector_multiplier.sv && ${VVP} vector_multiplier.bin ${VVP_POST}
+
+wave_vector_multiplier : testbenches/vector_multiplier_tb.sv
+	gtkwave vector_multiplier.fst --save=vector_multiplier.gtkw
+test_cascaded_adder_chain : testbenches/cascaded_adder_chain_tb.sv hdl/*
+	${IVERILOG} cascaded_adder_chain.bin ./testbenches/cascaded_adder_chain_tb.sv ./hdl/cascaded_adder_chain.sv && ${VVP} cascaded_adder_chain.bin ${VVP_POST}
+
+wave_cascaded_adder_chain : testbenches/cascaded_adder_chain_tb.sv
+	gtkwave cascaded_adder_chain.fst --save=cascaded_adder_chain.gtkw

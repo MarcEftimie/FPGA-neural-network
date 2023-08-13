@@ -12,7 +12,7 @@ module vector_multiplier
         input wire clk_in,
         input wire [VECTOR_LENGTH*FIXED_POINT_LENGTH-1:0] vector_1_in,
         input wire [VECTOR_LENGTH*FIXED_POINT_LENGTH-1:0] vector_2_in,
-        output logic [FIXED_POINT_LENGTH-1:0] product_out,
+        output logic [FIXED_POINT_LENGTH-1:0] product_out
     );
 
     localparam UNRECTIFIED_DATA_WIDTH = FIXED_POINT_LENGTH * 2;
@@ -44,17 +44,18 @@ module vector_multiplier
 
     generate
         for (genvar i = 0; i < VECTOR_LENGTH; i = i + 1) begin : multipliers_loop
-            fixed_point_multiplier #(
+            signed_fixed_point_multiplier #(
                 .FIXED_POINT_LENGTH(FIXED_POINT_LENGTH),
                 .FIXED_POINT_POSITION(FIXED_POINT_POSITION)
             ) FIXED_POINT_MULTIPLIER_1 (
                 .clk_in(clk_in),
-                .fixed_point_1_in(vector_1_in_q[VECTOR_LENGTH*FIXED_POINT_LENGTH +: FIXED_POINT_LENGTH]),
-                .fixed_point_2_in(vector_2_in_q[VECTOR_LENGTH*FIXED_POINT_LENGTH +: FIXED_POINT_LENGTH]),
+                .multiplicand_in(vector_1_in_q[VECTOR_LENGTH*FIXED_POINT_LENGTH +: FIXED_POINT_LENGTH]),
+                .multiplier_in(vector_2_in_q[VECTOR_LENGTH*FIXED_POINT_LENGTH +: FIXED_POINT_LENGTH]),
                 .product_out(product_d[VECTOR_LENGTH*UNRECTIFIED_DATA_WIDTH +: UNRECTIFIED_DATA_WIDTH])
             );
         end
     endgenerate
+
 
 // ----------------------------Register Signals--------------------------------
 
