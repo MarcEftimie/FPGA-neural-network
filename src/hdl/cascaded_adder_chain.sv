@@ -5,55 +5,64 @@
 module cascaded_adder_chain
     #(
         parameter ADDEND_WIDTH = 16,
-        parameter SUM_WIDTH = ADDEND_WIDTH,
-        parameter NUMBER_OF_ADDENDS = 64
+        parameter NUMBER_OF_ADDENDS = 64,
+        parameter FINAL_SUM_WIDTH = ADDEND_WIDTH
     )
     (
         input wire clk_in,
-        input wire [NUMBER_OF_ADDENDS-1:0][ADDEND_WIDTH-1:0] addends_in,
-        output logic [SUM_WIDTH-1:0] sum_out
+        input wire signed [NUMBER_OF_ADDENDS-1:0][ADDEND_WIDTH-1:0] addends_in,
+        output logic signed [FINAL_SUM_WIDTH-1:0] sum_out
     );
 
     localparam STAGES = $clog2(NUMBER_OF_ADDENDS);
-
-// -----------------------------Define In/Outs---------------------------------
-    
-    // Inputs
-
-    // Outputs
-    logic [SUM_WIDTH-1:0] sum_out_d, sum_out_q;
-
-// -----------------------------Assign In/Outs---------------------------------
-    
-    always_comb begin : ASSIGN_INPUT_SIGNALS
-    end
-
-    always_comb begin : ASSIGN_OUTPUT_SIGNALS
-        sum_out = sum[0];
-    end
+    localparam MAX_SUM_WIDTH = ADDEND_WIDTH + STAGES;
 
 // -----------------------------Define Signals---------------------------------
-    logic [NUMBER_OF_ADDENDS-1:0][ADDEND_WIDTH-1:0] sum;
+
+    logic signed [(NUMBER_OF_ADDENDS/2)-1:0][ADDEND_WIDTH:0] stage_1_sum;
+    logic signed [(NUMBER_OF_ADDENDS/4)-1:0][ADDEND_WIDTH+1:0] stage_2_sum;
+    logic signed [(NUMBER_OF_ADDENDS/8)-1:0][ADDEND_WIDTH+2:0] stage_3_sum;
+    logic signed [(NUMBER_OF_ADDENDS/16)-1:0][ADDEND_WIDTH+3:0] stage_4_sum;
+    logic signed [(NUMBER_OF_ADDENDS/32)-1:0][ADDEND_WIDTH+4:0] stage_5_sum;
+    logic signed [(NUMBER_OF_ADDENDS/64)-1:0][ADDEND_WIDTH+5:0] stage_6_sum;
+
+    logic signed [FINAL_SUM_WIDTH-1:0] recitfied_sum;
+
 // -----------------------------Assign Signals---------------------------------
 
-    genvar stage_num, i;
-    generate
-        for (stage_num = 0; stage_num < STAGES; stage_num++) begin
-            for (i = 0; i < 2**stage_num; i++) begin
-                assign sum[i] = stage_num == 0 ? addends_in[i] + addends_in[i+1] : sum[i] + sum[i+i];
-            end
-        end
-    endgenerate
-
-// ----------------------------Register Signals--------------------------------
-
-    always_ff @(posedge clk_in) begin : REGISTER_INPUT_SIGNALS
+    genvar i;
+    for (i = 0; i<(NUMBER_OF_ADDENDS/2); i++) begin
+        assign stage_1_sum[i] = addends_in[i] + addends_in[i+1];
     end
 
-    always_ff @(posedge clk_in) begin : REGISTER_OUTPUT_SIGNALS
+    for (i = 0; i<(NUMBER_OF_ADDENDS/4); i++) begin
+        assign stage_2_sum[i] = stage_1_sum[i] + stage_1_sum[i+1];
     end
 
-    always_ff @(posedge clk_in) begin : REGISTER_DESIGN_SIGNALS
+    for (i = 0; i<(NUMBER_OF_ADDENDS/8); i++) begin
+        assign stage_3_sum[i] = stage_2_sum[i] + stage_2_sum[i+1];
     end
+
+    for (i = 0; i<(NUMBER_OF_ADDENDS/16); i++) begin
+        assign stage_4_sum[i] = stage_3_sum[i] + stage_3_sum[i+1];
+    end
+
+    for (i = 0; i<(NUMBER_OF_ADDENDS/32); i++) begin
+        assign stage_5_sum[i] = stage_4_sum[i] + stage_4_sum[i+1];
+    end
+
+    for (i = 0; i<(NUMBER_OF_ADDENDS/64); i++) begin
+        assign stage_6_sum[i] = stage_5_sum[i] + stage_5_sum[i+1];
+    end
+
+    overflow_underflow_rectifier #(
+        .UNRECTIFIED_DATA_WIDTH(MAX_SUM_WIDTH),
+        .RECTIFIED_DATA_WIDTH(FINAL_SUM_WIDTH)
+    ) OVERFLOW_UNDERFLOW_RECTIFIER (
+        .clk_in(clk_in),
+        .unrectified_num_in(stage_6_sum),
+        .rectified_num_out(sum_out)
+    );
+
 
 endmodule

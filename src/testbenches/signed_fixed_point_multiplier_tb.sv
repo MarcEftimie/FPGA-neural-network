@@ -14,7 +14,7 @@ module signed_fixed_point_multiplier_tb;
     logic signed [FIXED_POINT_LENGTH-1:0] edge_values [3:0];
     int i;
     int j;
-    int DELAY = 7;
+    int DELAY = 2;
 
     localparam MAX_VALUE = (2**(FIXED_POINT_LENGTH-1)) - 1;
     localparam MIN_VALUE = -(2**(FIXED_POINT_LENGTH-1));

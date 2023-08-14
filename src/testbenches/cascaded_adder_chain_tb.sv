@@ -5,15 +5,16 @@ module cascaded_adder_chain_tb;
 
     parameter CLK_PERIOD_NS = 10;
     parameter ADDEND_WIDTH = 16;
-    parameter SUM_WIDTH = ADDEND_WIDTH;
+    parameter FINAL_SUM_WIDTH = ADDEND_WIDTH;
     parameter NUMBER_OF_ADDENDS = 64;
     logic clk_in;
     logic [NUMBER_OF_ADDENDS-1:0][ADDEND_WIDTH-1:0] addends_in;
-    wire [SUM_WIDTH-1:0] sum_out;
+    wire [FINAL_SUM_WIDTH-1:0] sum_out;
+    int i;
 
     cascaded_adder_chain #(
         .ADDEND_WIDTH(ADDEND_WIDTH),
-        .SUM_WIDTH(SUM_WIDTH),
+        .FINAL_SUM_WIDTH(FINAL_SUM_WIDTH),
         .NUMBER_OF_ADDENDS(NUMBER_OF_ADDENDS)
     ) UUT(
         .*
@@ -25,9 +26,11 @@ module cascaded_adder_chain_tb;
         $dumpfile("cascaded_adder_chain.fst");
         $dumpvars(0, UUT);
         clk_in = 0;
-        reset_i = 1;
         repeat(1) @(negedge clk_in);
-        reset_i = 0;
+        for (i=0; i<NUMBER_OF_ADDENDS; i++) begin
+            addends_in[i] = 2;
+        end
+        repeat(10) @(negedge clk_in);
         $finish;
     end
 
