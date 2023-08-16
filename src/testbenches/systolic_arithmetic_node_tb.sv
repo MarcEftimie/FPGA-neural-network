@@ -3,27 +3,39 @@
 
 module systolic_arithmetic_node_tb;
 
-    parameter TEST_COUNT = 100000;
-    string MEM_PATH = "./mem/test_vectors/systolic_artihmetic_node/";
     parameter CLK_PERIOD_NS = 10;
     parameter FIXED_POINT_WIDTH = 16;
     parameter PARTIAL_SUM_WIDTH_IN = 16;
     parameter PARTIAL_SUM_WIDTH_OUT = PARTIAL_SUM_WIDTH_IN + 1;
     parameter FIXED_POINT_POSITION = 10;
+
+    // UUT Inputs
     logic clk_in;
     logic weight_valid_in;
     logic signed [FIXED_POINT_WIDTH-1:0] weight_in;
     logic signed [FIXED_POINT_WIDTH-1:0] activation_in;
     logic signed [PARTIAL_SUM_WIDTH_IN-1:0] partial_sum_in;
+
+    // UUT Outputs
     wire signed [FIXED_POINT_WIDTH-1:0] activation_out;
     wire signed [PARTIAL_SUM_WIDTH_OUT-1:0] partial_sum_out;
 
+    // Test Hyperparameters
+    parameter TEST_COUNT = 100000;
+    string MEM_PATH = "./mem/test_vectors/systolic_artihmetic_node/";
+
+    // Test Vectors
     logic signed [FIXED_POINT_WIDTH-1:0] weights_test_vector [0:TEST_COUNT-1];
     logic signed [FIXED_POINT_WIDTH-1:0] activations_test_vector [0:TEST_COUNT-1];
     logic signed [PARTIAL_SUM_WIDTH_IN-1:0] partial_sums_test_vector [0:TEST_COUNT-1];
     logic signed [PARTIAL_SUM_WIDTH_OUT-1:0] sums_test_vector [0:TEST_COUNT-1];
 
-    int test_count;
+    task automatic readMem();
+        $readmemb({MEM_PATH, "weights.mem"}, weights_test_vector);
+        $readmemb({MEM_PATH, "activations.mem"}, activations_test_vector);
+        $readmemb({MEM_PATH, "partial_sums.mem"}, partial_sums_test_vector);
+        $readmemb({MEM_PATH, "sums.mem"}, sums_test_vector);
+    endtask
 
     systolic_arithmetic_node #(
         .FIXED_POINT_WIDTH(FIXED_POINT_WIDTH),
@@ -33,18 +45,9 @@ module systolic_arithmetic_node_tb;
         .*
     );
 
-    task automatic readMem();
-        $readmemb({MEM_PATH, "weights.mem"}, weights_test_vector);
-        $readmemb({MEM_PATH, "activations.mem"}, activations_test_vector);
-        $readmemb({MEM_PATH, "partial_sums.mem"}, partial_sums_test_vector);
-        $readmemb({MEM_PATH, "sums.mem"}, sums_test_vector);
-        // $fscanf($fopen({MEM_PATH, "weights.mem"}, "r"), "%b\n", weights_test_vector);
-        // $fscanf($fopen({MEM_PATH, "activations.mem"}, "r"), "%b\n", activations_test_vector);
-        // $fscanf($fopen({MEM_PATH, "partial_sums.mem"}, "r"), "%b\n", partial_sums_test_vector);
-        // $fscanf($fopen({MEM_PATH, "sums.mem"}, "r"), "%b\n", sums_test_vector);
-    endtask
-
     always #(CLK_PERIOD_NS/2) clk_in = ~clk_in;
+
+    int test_count;
 
     initial begin
         $dumpfile("systolic_arithmetic_node.fst");

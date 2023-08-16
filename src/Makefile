@@ -19,6 +19,19 @@ program_fpga_vivado: $(SRCS) $(MAIN_MEMSMEMORIES) build.tcl program.tcl Nexys-4-
 	@echo "#### Programming FPGA (Vivado)      ####"
 	@echo "########################################"
 	${VIVADO} program.tcl
+
+create_module_template : build_scripts/create_module_template.py
+	python3 ./build_scripts/create_module_template.py $(filter-out $@,$(MAKECMDGOALS))
+%:
+	@:
+
+create_testbench_templates : build_scripts/create_testbench_templates.py
+	python3 ./build_scripts/create_testbench_templates.py
+
+add_signal : build_scripts/add_signal.py
+	python3 ./build_scripts/add_signal.py $(filter-out $@,$(MAKECMDGOALS))
+%:
+	@:
 	
 test_multiplier : testbenches/multiplier_tb.sv hdl/*
 	${IVERILOG} multiplier.bin ./testbenches/multiplier_tb.sv ./hdl/multiplier.sv && ${VVP} multiplier.bin ${VVP_POST}
@@ -61,4 +74,22 @@ test_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv hdl/*
 
 wave_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv
 	gtkwave systolic_arithmetic_node.fst --save=systolic_arithmetic_node.gtkw
+
+test_hello : testbenches/hello_tb.sv hdl/*
+	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
+
+wave_hello : testbenches/hello_tb.sv
+	gtkwave hello.fst --save=hello.gtkw
+
+test_hello : testbenches/hello_tb.sv hdl/*
+	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
+
+wave_hello : testbenches/hello_tb.sv
+	gtkwave hello.fst --save=hello.gtkw
+
+test_hello : testbenches/hello_tb.sv hdl/*
+	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
+
+wave_hello : testbenches/hello_tb.sv
+	gtkwave hello.fst --save=hello.gtkw
 
