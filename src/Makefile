@@ -33,63 +33,9 @@ add_signal : build_scripts/add_signal.py
 %:
 	@:
 	
-test_multiplier : testbenches/multiplier_tb.sv hdl/*
-	${IVERILOG} multiplier.bin ./testbenches/multiplier_tb.sv ./hdl/multiplier.sv && ${VVP} multiplier.bin ${VVP_POST}
-
-wave_multiplier : testbenches/multiplier_tb.sv
-	gtkwave multiplier.fst --save=multiplier.gtkw
-
-test_overflow_underflow_rectifier : testbenches/overflow_underflow_rectifier_tb.sv hdl/*
-	${IVERILOG} overflow_underflow_rectifier.bin ./testbenches/overflow_underflow_rectifier_tb.sv ./hdl/overflow_underflow_rectifier.sv && ${VVP} overflow_underflow_rectifier.bin ${VVP_POST}
-
-wave_overflow_underflow_rectifier : testbenches/overflow_underflow_rectifier_tb.sv
-	gtkwave overflow_underflow_rectifier.fst --save=overflow_underflow_rectifier.gtkwtest_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv hdl/*
-	${IVERILOG} signed_fixed_point_multiplier.bin ./testbenches/signed_fixed_point_multiplier_tb.sv ./hdl/signed_fixed_point_multiplier.sv && ${VVP} signed_fixed_point_multiplier.bin ${VVP_POST}
-
-test_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv hdl/*
-	${IVERILOG} signed_fixed_point_multiplier.bin ./testbenches/signed_fixed_point_multiplier_tb.sv ./hdl/* && ${VVP} signed_fixed_point_multiplier.bin ${VVP_POST}
-
-wave_signed_fixed_point_multiplier : testbenches/signed_fixed_point_multiplier_tb.sv
-	gtkwave signed_fixed_point_multiplier.fst --save=signed_fixed_point_multiplier.gtkw
-	
-test_adder : testbenches/adder_tb.sv hdl/*
-	${IVERILOG} adder.bin ./testbenches/adder_tb.sv ./hdl/adder.sv && ${VVP} adder.bin ${VVP_POST}
-
-wave_adder : testbenches/adder_tb.sv
-	gtkwave adder.fst --save=adder.gtkw
-
-test_cascaded_adder_chain : testbenches/cascaded_adder_chain_tb.sv hdl/*
-	${IVERILOG} cascaded_adder_chain.bin ./testbenches/cascaded_adder_chain_tb.sv ./hdl/cascaded_adder_chain.sv ./hdl/overflow_underflow_rectifier.sv && ${VVP} cascaded_adder_chain.bin ${VVP_POST}
-
-wave_cascaded_adder_chain : testbenches/cascaded_adder_chain_tb.sv
-	gtkwave cascaded_adder_chain.fst --save=cascaded_adder_chain.gtkw
-
-test_vector_multiplier : testbenches/vector_multiplier_tb.sv hdl/*
-	${IVERILOG} vector_multiplier.bin ./testbenches/vector_multiplier_tb.sv ./hdl/* && ${VVP} vector_multiplier.bin ${VVP_POST}
-
-wave_vector_multiplier : testbenches/vector_multiplier_tb.sv
-	gtkwave vector_multiplier.fst --save=vector_multiplier.gtkw
 test_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv hdl/*
 	${IVERILOG} systolic_arithmetic_node.bin ./testbenches/systolic_arithmetic_node_tb.sv ./hdl/systolic_arithmetic_node.sv && ${VVP} systolic_arithmetic_node.bin ${VVP_POST}
 
 wave_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv
 	gtkwave systolic_arithmetic_node.fst --save=systolic_arithmetic_node.gtkw
-
-test_hello : testbenches/hello_tb.sv hdl/*
-	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
-
-wave_hello : testbenches/hello_tb.sv
-	gtkwave hello.fst --save=hello.gtkw
-
-test_hello : testbenches/hello_tb.sv hdl/*
-	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
-
-wave_hello : testbenches/hello_tb.sv
-	gtkwave hello.fst --save=hello.gtkw
-
-test_hello : testbenches/hello_tb.sv hdl/*
-	${IVERILOG} hello.bin ./testbenches/hello_tb.sv ./hdl/hello.sv && ${VVP} hello.bin ${VVP_POST}
-
-wave_hello : testbenches/hello_tb.sv
-	gtkwave hello.fst --save=hello.gtkw
 

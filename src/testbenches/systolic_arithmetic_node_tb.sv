@@ -71,7 +71,6 @@ module systolic_arithmetic_node_tb;
             repeat(1) @(negedge clk_in);
         end
         
-        // repeat(1) @(negedge clk_in);
         $finish;
     end
 
