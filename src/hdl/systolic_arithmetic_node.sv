@@ -7,7 +7,9 @@ module systolic_arithmetic_node
         parameter FIXED_POINT_WIDTH = 16,
         parameter PARTIAL_SUM_WIDTH_IN = 16,
         parameter PARTIAL_SUM_WIDTH_OUT = PARTIAL_SUM_WIDTH_IN + 1,
-        parameter FIXED_POINT_POSITION = 10
+        parameter FIXED_POINT_POSITION = 10,
+        parameter MAX_PRODUCT_VALUE = 2**(FIXED_POINT_WIDTH-1) - 1,
+        parameter MIN_PRODUCT_VALUE = -(2**(FIXED_POINT_WIDTH-1))
     )
     (
         input wire clk_in,
@@ -76,16 +78,27 @@ module systolic_arithmetic_node
     end
 
     always_comb begin : OVER_AND_UNDERFLOW_PRODUCT_DETECTION
-        product_overflow_detected = $signed(unrectified_product_q[UNRECTIFIED_PRODUCT_WIDTH-1: FIXED_POINT_POSITION]) > 32767;
-        product_underflow_detected = $signed(unrectified_product_q[UNRECTIFIED_PRODUCT_WIDTH-1: FIXED_POINT_POSITION]) < -32768;
+        // Ignore the bottom half of the region to the right of the decimal
+        // Example Signed Q2.2 Multiplication:
+        // 01.01 * 01.01 = 0001.0001
+        // When detecting overflow/underflow, remove bottom half of decimal region:
+        // 0001.0001 -> 0001.00
+        // Now do a comparison for MAX_VALUE and MIN_VALUE to detect overflow/underflow
+        product_overflow_detected = $signed(unrectified_product_q[UNRECTIFIED_PRODUCT_WIDTH-1: FIXED_POINT_POSITION]) > MAX_PRODUCT_VALUE;
+        product_underflow_detected = $signed(unrectified_product_q[UNRECTIFIED_PRODUCT_WIDTH-1: FIXED_POINT_POSITION]) < MIN_PRODUCT_VALUE;
     end
 
     always_comb begin : PRODUCT_RECTIFICATION
         if (product_overflow_detected) begin
-            rectified_product = {1'b0, {(FIXED_POINT_WIDTH-1){1'b1}}};
+            rectified_product = MAX_PRODUCT_VALUE;
         end else if (product_underflow_detected) begin
-            rectified_product = {1'b1, {(FIXED_POINT_WIDTH-1){1'b0}}};
+            rectified_product = MIN_PRODUCT_VALUE;
         end else begin
+            // Extract product with correct width
+            // Example Signed Q4.4 Product:
+            // 0010.0101
+            // Desired width is Q2.2 (4 bit width)
+            // 0010.0101 -> 10.01
             rectified_product = unrectified_product_q[UNRECTIFIED_PRODUCT_WIDTH - (FIXED_POINT_WIDTH-FIXED_POINT_POSITION) - 1 : FIXED_POINT_POSITION];
         end
     end
