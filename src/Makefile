@@ -56,3 +56,9 @@ test_vector_multiplier : testbenches/vector_multiplier_tb.sv hdl/*
 
 wave_vector_multiplier : testbenches/vector_multiplier_tb.sv
 	gtkwave vector_multiplier.fst --save=vector_multiplier.gtkw
+test_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv hdl/*
+	${IVERILOG} systolic_arithmetic_node.bin ./testbenches/systolic_arithmetic_node_tb.sv ./hdl/systolic_arithmetic_node.sv && ${VVP} systolic_arithmetic_node.bin ${VVP_POST}
+
+wave_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv
+	gtkwave systolic_arithmetic_node.fst --save=systolic_arithmetic_node.gtkw
+

@@ -4,23 +4,23 @@
 module signed_fixed_point_multiplier_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    parameter FIXED_POINT_LENGTH = 16;
+    parameter FIXED_POINT_WIDTH = 16;
     parameter FIXED_POINT_POSITION = 10;
     logic clk_in;
-    logic signed [FIXED_POINT_LENGTH-1:0] multiplicand_in;
-    logic signed [FIXED_POINT_LENGTH-1:0] multiplier_in;
-    wire signed [FIXED_POINT_LENGTH-1:0] product_out;
-    logic signed [FIXED_POINT_LENGTH*2-1:0] expected_product_out;
-    logic signed [FIXED_POINT_LENGTH-1:0] edge_values [3:0];
+    logic signed [FIXED_POINT_WIDTH-1:0] multiplicand_in;
+    logic signed [FIXED_POINT_WIDTH-1:0] multiplier_in;
+    wire signed [FIXED_POINT_WIDTH-1:0] product_out;
+    logic signed [FIXED_POINT_WIDTH*2-1:0] expected_product_out;
+    logic signed [FIXED_POINT_WIDTH-1:0] edge_values [3:0];
     int i;
     int j;
     int DELAY = 2;
 
-    localparam MAX_VALUE = (2**(FIXED_POINT_LENGTH-1)) - 1;
-    localparam MIN_VALUE = -(2**(FIXED_POINT_LENGTH-1));
+    localparam MAX_VALUE = (2**(FIXED_POINT_WIDTH-1)) - 1;
+    localparam MIN_VALUE = -(2**(FIXED_POINT_WIDTH-1));
 
     signed_fixed_point_multiplier #(
-        .FIXED_POINT_LENGTH(FIXED_POINT_LENGTH),
+        .FIXED_POINT_WIDTH(FIXED_POINT_WIDTH),
         .FIXED_POINT_POSITION(FIXED_POINT_POSITION)
     ) UUT(
         .*
@@ -50,7 +50,7 @@ module signed_fixed_point_multiplier_tb;
                 end else begin
                     expected_product_out = $signed(multiplicand_in) * $signed(multiplier_in) >>> 10; 
                 end
-                if (product_out !== expected_product_out[FIXED_POINT_LENGTH-1:0]) begin
+                if (product_out !== expected_product_out[FIXED_POINT_WIDTH-1:0]) begin
                     $display("Mismatch at multiplicand: %h multiplier: %h output: %h expected_out: %h", multiplicand_in, multiplier_in, product_out, expected_product_out);
                 end
             end
@@ -68,7 +68,7 @@ module signed_fixed_point_multiplier_tb;
             end else begin
                 expected_product_out = (multiplicand_in * multiplier_in) >>> 10; 
             end
-            if (product_out !== expected_product_out[FIXED_POINT_LENGTH-1:0]) begin
+            if (product_out !== expected_product_out[FIXED_POINT_WIDTH-1:0]) begin
                 $display("Mismatch at multiplicand: %d multiplier: %d output: %d expected_out: %d", multiplicand_in, multiplier_in, product_out, expected_product_out);
             end
         end
@@ -85,7 +85,7 @@ module signed_fixed_point_multiplier_tb;
             end else begin
                 expected_product_out = (multiplicand_in * multiplier_in) >>> 10; 
             end
-            if (product_out !== expected_product_out[FIXED_POINT_LENGTH-1:0]) begin
+            if (product_out !== expected_product_out[FIXED_POINT_WIDTH-1:0]) begin
                 $display("Mismatch at multiplicand: %d multiplier: %d output: %d expected_out: %d", multiplicand_in, multiplier_in, product_out, expected_product_out);
             end
         end
