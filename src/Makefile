@@ -39,3 +39,9 @@ test_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv hdl/*
 wave_systolic_arithmetic_node : testbenches/systolic_arithmetic_node_tb.sv
 	gtkwave systolic_arithmetic_node.fst --save=systolic_arithmetic_node.gtkw
 
+test_systolic_array : testbenches/systolic_array_tb.sv hdl/*
+	${IVERILOG} systolic_array.bin ./testbenches/systolic_array_tb.sv ./hdl/systolic_array.sv ./hdl/systolic_arithmetic_node.sv && ${VVP} systolic_array.bin ${VVP_POST}
+
+wave_systolic_array : testbenches/systolic_array_tb.sv
+	gtkwave systolic_array.fst --save=systolic_array.gtkw
+

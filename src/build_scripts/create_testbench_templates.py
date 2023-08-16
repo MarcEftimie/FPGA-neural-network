@@ -19,13 +19,13 @@ def create_testbench_template(file_name):
             if "input" in line:
                 inputs.append(
                     "    logic "
-                    + line.strip().strip("input ").strip("wire ").strip(",")
+                    + line.strip().strip("input ").replace("wire ", "").strip(",")
                     + ";\n"
                 )
             if "output" in line:
                 outputs.append(
                     "    wire "
-                    + line.strip().strip("output ").strip("logic ").strip(",")
+                    + line.strip().strip("output ").replace("logic ", "").strip(",")
                     + ";\n"
                 )
             if ");" in line:
@@ -39,7 +39,7 @@ def create_testbench_template(file_name):
 module {file_name}_tb;
 
     parameter CLK_PERIOD_NS = 10;
-    
+
     // UUT Parameters
 {''.join([str(parameter) for parameter in parameters])}
     // UUT Inputs
