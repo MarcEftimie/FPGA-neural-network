@@ -10,33 +10,15 @@ module systolic_array
     (
         input wire clk_in,
         input wire weights_valid_in,
-        input wire [SYSTOLIC_ARRAY_COLS-1:0][FIXED_POINT_WIDTH-1:0] weights_in,
+        input wire [SYSTOLIC_ARRAY_ROWS-1:0][SYSTOLIC_ARRAY_COLS-1:0][FIXED_POINT_WIDTH-1:0] weights_in,
         input wire [SYSTOLIC_ARRAY_ROWS-1:0][FIXED_POINT_WIDTH-1:0] activations_in,
         output logic [SYSTOLIC_ARRAY_COLS-1:0][FIXED_POINT_WIDTH-1:0] sum_out
     );
 
-// -------------------------Define In/Out Registers----------------------------
-    
-    // Inputs
-
-    // Outputs
-
-// -------------------------Assign In/Out Registers----------------------------
-    
-    always_comb begin : ASSIGN_INPUT_SIGNALS
-    end
-
-    always_comb begin : ASSIGN_OUTPUT_SIGNALS
-    end
-
 // -----------------------------Define Signals---------------------------------
-    logic [SYSTOLIC_ARRAY_ROWS-1:0][SYSTOLIC_ARRAY_COLS:0][FIXED_POINT_WIDTH-1:0] weight_connections;
     logic [SYSTOLIC_ARRAY_ROWS-1:0][SYSTOLIC_ARRAY_COLS:0][FIXED_POINT_WIDTH-1:0] activation_connections;
     logic [SYSTOLIC_ARRAY_COLS-1:0][SYSTOLIC_ARRAY_ROWS:0][FIXED_POINT_WIDTH+6:0] partial_sum_connections;
 
-    // for (genvar col = 0; col < SYSTOLIC_ARRAY_COLS; col++) begin
-    //     logic [SYSTOLIC_ARRAY_ROWS:0][FIXED_POINT_WIDTH - 1:0] partial_sum_connections;
-    // end
 // -----------------------------Assign Signals---------------------------------
 
     generate
@@ -47,7 +29,7 @@ module systolic_array
     
     generate
         
-        for (genvar row = 0; row < 1; row++) begin
+        for (genvar row = 0; row < SYSTOLIC_ARRAY_ROWS; row++) begin
             for (genvar col = 0; col < SYSTOLIC_ARRAY_COLS; col++) begin
                 systolic_arithmetic_node #(
                     .FIXED_POINT_WIDTH(FIXED_POINT_WIDTH),
@@ -56,13 +38,19 @@ module systolic_array
                 ) SYSTOLIC_ARITHMETIC_NODE (
                     .clk_in(clk_in),
                     .weight_valid_in(weights_valid_in),
-                    .weight_in(weight_connections[row][col]),
+                    .weight_in(weights_in[row][col]),
                     .activation_in(activation_connections[row][col]),
                     .partial_sum_in(partial_sum_connections[col][row]),
                     .activation_out(activation_connections[row][col+1]),
                     .partial_sum_out(partial_sum_connections[col][row+1])
                 );
             end
+        end
+    endgenerate
+
+    generate
+        for (genvar col = 0; col < SYSTOLIC_ARRAY_COLS; col++) begin
+            assign partial_sum_connections[col][0] = 0;
         end
     endgenerate
 

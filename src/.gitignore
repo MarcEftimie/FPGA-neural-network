@@ -29,5 +29,5 @@ vivado*.str
 # Xilinx temporary files
 *.Xil
 
-# Python setup files
-*.py
+# Memory files
+*.mem

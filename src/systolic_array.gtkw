@@ -1,0 +1,29 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Mon Nov 13 18:19:26 2023
+[*]
+[dumpfile] "/Users/marce/fpga/FPGA-neural-network/src/systolic_array.fst"
+[dumpfile_mtime] "Mon Nov 13 18:18:55 2023"
+[dumpfile_size] 10653
+[savefile] "/Users/marce/fpga/FPGA-neural-network/src/systolic_array.gtkw"
+[timestart] 0
+[size] 1728 1051
+[pos] -1 -1
+*-18.000000 200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] systolic_array_tb.
+[sst_width] 193
+[signals_width] 296
+[sst_expanded] 1
+[sst_vpaned_height] 325
+@28
+systolic_array_tb.UUT.clk_in
+systolic_array_tb.UUT.weights_valid_in
+@23
+systolic_array_tb.UUT.weights_in[1023:0]
+@22
+systolic_array_tb.UUT.activation_connections[1151:0]
+systolic_array_tb.UUT.activations_in[127:0]
+systolic_array_tb.UUT.partial_sum_connections[1655:0]
+systolic_array_tb.UUT.sum_out[127:0]
+[pattern_trace] 1
+[pattern_trace] 0

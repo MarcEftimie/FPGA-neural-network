@@ -1,0 +1,29 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Fri Aug 25 10:45:18 2023
+[*]
+[dumpfile] "/Users/marce/fpga/FPGA-neural-network/src/systolic_arithmetic_node.fst"
+[dumpfile_mtime] "Fri Aug 25 10:44:13 2023"
+[dumpfile_size] 4774859
+[savefile] "/Users/marce/fpga/FPGA-neural-network/src/systolic_arithmetic_node.gtkw"
+[timestart] 0
+[size] 1728 1051
+[pos] -1 -1
+*-20.000000 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] systolic_arithmetic_node_tb.
+[sst_width] 193
+[signals_width] 339
+[sst_expanded] 1
+[sst_vpaned_height] 325
+@22
+systolic_arithmetic_node_tb.UUT.activation_delay_q[15:0]
+systolic_arithmetic_node_tb.UUT.activation_in_q[15:0]
+systolic_arithmetic_node_tb.UUT.partial_sum_delay_q[15:0]
+systolic_arithmetic_node_tb.UUT.partial_sum_in_q[15:0]
+systolic_arithmetic_node_tb.UUT.unrectified_product_q[31:0]
+@28
+systolic_arithmetic_node_tb.UUT.weight_activation_signs_dont_match_q
+@22
+systolic_arithmetic_node_tb.UUT.weight_q[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
