@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Thu Nov 16 23:15:58 2023
+[*]
+[dumpfile] "/Users/marce/fpga/FPGA-neural-network/src/row_selector.fst"
+[dumpfile_mtime] "Thu Nov 16 23:15:48 2023"
+[dumpfile_size] 1107
+[savefile] "/Users/marce/fpga/FPGA-neural-network/src/row_selector.gtkw"
+[timestart] 0
+[size] 1728 1051
+[pos] -1 -1
+*-16.000000 45000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] row_selector_tb.
+[sst_width] 193
+[signals_width] 245
+[sst_expanded] 1
+[sst_vpaned_height] 325
+@420
+row_selector_tb.UUT.M1_WIDTH
+row_selector_tb.UUT.SYSTOLIC_WIDTH
+@28
+row_selector_tb.UUT.clk_in
+row_selector_tb.UUT.rst_in
+@24
+row_selector_tb.UUT.current_row_offset_q[7:0]
+@22
+row_selector_tb.UUT.row_count_q[7:0]
+@24
+row_selector_tb.UUT.total_row_count_q[7:0]
+@23
+row_selector_tb.UUT.row_start_q[7:0]
+@24
+row_selector_tb.UUT.item_out[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

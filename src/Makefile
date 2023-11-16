@@ -45,3 +45,9 @@ test_systolic_array : testbenches/systolic_array_tb.sv hdl/*
 wave_systolic_array : testbenches/systolic_array_tb.sv
 	gtkwave systolic_array.fst --save=systolic_array.gtkw
 
+test_row_selector : testbenches/row_selector_tb.sv hdl/*
+	${IVERILOG} row_selector.bin ./testbenches/row_selector_tb.sv ./hdl/row_selector.sv && ${VVP} row_selector.bin ${VVP_POST}
+
+wave_row_selector : testbenches/row_selector_tb.sv
+	gtkwave row_selector.fst --save=row_selector.gtkw
+
